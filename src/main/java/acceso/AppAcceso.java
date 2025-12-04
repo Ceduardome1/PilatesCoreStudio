@@ -91,5 +91,11 @@ public class AppAcceso extends JFrame implements Formato, ActionListener {
 		public static void main( String args[] ) {
 			new AppAcceso();
 		}
+
+		@Override
+		public void reiniciarInterfaz() {
+			// TODO Auto-generated method stub
+			
+		}
 		
 }

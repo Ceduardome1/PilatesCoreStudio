@@ -62,7 +62,7 @@ public class PanelClientes extends JPanel implements Formato {
 	}
 	
 	public void MostrarCliente( Cliente cliente ) {
-		ReiniciarCaptura();
+		reiniciarInterfaz();
 		String infoCliente[] = { 
 				""+cliente.getIdCliente(),
 				cliente.getNombre(),
@@ -85,9 +85,10 @@ public class PanelClientes extends JPanel implements Formato {
 		
 	}
 
-	public void ReiniciarCaptura() {
-		reporteCliente.reiniciar();
-		reporteSaldoCliente.reiniciar();
+	@Override
+	public void reiniciarInterfaz() {
+		reporteCliente.reiniciarInterfaz();
+		reporteSaldoCliente.reiniciarInterfaz();
 	}
 	
 	public JButton getBtnSeleccionar() {
@@ -97,4 +98,5 @@ public class PanelClientes extends JPanel implements Formato {
 	public JButton getBtnLimpiar() {
 		return btnLimpiar;
 	}
+
 }

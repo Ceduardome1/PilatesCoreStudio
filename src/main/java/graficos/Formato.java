@@ -12,6 +12,8 @@ import java.awt.*;
 
 public interface Formato {
 
+	public abstract void reiniciarInterfaz();
+	
 	public static final Font fontTitulo = new Font("CodeNewRoman Nerd Font",Font.BOLD,22)
 	, fontSubtitulo = new Font("CodeNewRoman Nerd Font", Font.PLAIN, 18)
 	, fontContenido = new Font("CodeNewRoman Nerd Font", Font.PLAIN, 18)

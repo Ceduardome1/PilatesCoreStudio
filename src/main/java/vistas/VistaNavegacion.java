@@ -79,4 +79,10 @@ public class VistaNavegacion extends JFrame implements Formato {
 		new ControladorNavegacion( new VistaNavegacion( recepcionista ) );
 	}
 
+	@Override
+	public void reiniciarInterfaz() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

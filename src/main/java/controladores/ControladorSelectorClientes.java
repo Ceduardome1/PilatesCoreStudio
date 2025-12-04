@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionListener;
 
 import clientes.Cliente;
 import extras.Rutinas;
+import interfaces.SelectorCliente;
 import servicios.GestionClientes;
 import vistas.VistaSelectorClientes;
 
@@ -74,13 +75,33 @@ public class ControladorSelectorClientes implements ActionListener, ListSelectio
 		return true;
 	}
 	
+	private List<Cliente> consultarClientes() {
+			try {
+				return servicioClientes.buscarClientes( idBuscar, campos[1], campos[2], campos[3], telBusqueda, campos[5] );
+			} catch (Exception e) {
+				Rutinas.MensajeError("Ocurrio un error al consultar el cliente.");
+				vista.reiniciarInterfaz();
+				return null;
+			}
+	}
+	
+	private Cliente consultarCliente() {
+		try {
+			return servicioClientes.buscarCliente( idSeleccionado );
+		} catch (Exception e) {
+			Rutinas.MensajeError("Ocurrio un error al consultar el cliente.");
+			vista.reiniciarInterfaz();
+			return null;
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if( e.getSource() == vista.getBtnConsultar() ) {
 				if(! ValidarCampos() ) return;
-			List<Cliente> clientes = 
-				servicioClientes.buscarClientes( idBuscar, campos[1], campos[2], campos[3], telBusqueda, campos[5] );
+			List<Cliente> clientes = consultarClientes();
+				if( clientes == null ) return;
 			vista.ActualizarValoresTabla( clientes );	
 			return;
 		}
@@ -90,7 +111,8 @@ public class ControladorSelectorClientes implements ActionListener, ListSelectio
 					Rutinas.MensajeError("No hay ningún cliente seleccionado.");
 					return;
 				}
-			Cliente cliente = servicioClientes.buscarCliente( idSeleccionado );
+			Cliente cliente = consultarCliente();
+				if( cliente == null ) return;
 			clienteListener.onClienteSeleccionado( cliente );
 			vista.dispose();
 			return;

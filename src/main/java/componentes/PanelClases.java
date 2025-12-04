@@ -69,7 +69,7 @@ public class PanelClases extends JPanel implements Formato {
 	}
 	
 	public void MostrarInfoClase( Clase clase ) {
-		ReiniciarCaptura();
+		reiniciarInterfaz();
 		Horario hora = clase.getHorario();
 		Sala sala = clase.getSala();
 		Instructor inst = clase.getInstructor();
@@ -92,13 +92,14 @@ public class PanelClases extends JPanel implements Formato {
 				inst.getApellidoPat(),
 				inst.getApellidoMat()
 		};
-		reporteSala.agregaRenglon( infoInst );
+		reporteInstructor.agregaRenglon( infoInst );
 		
 	}
-
-	public void ReiniciarCaptura() {
-		reporteClase.reiniciar();
-		reporteInstructor.reiniciar();
+	
+	@Override
+	public void reiniciarInterfaz() {
+		reporteClase.reiniciarInterfaz();
+		reporteInstructor.reiniciarInterfaz();
 	}
 	
 	public JButton getBtnSeleccionar() {

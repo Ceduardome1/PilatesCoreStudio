@@ -108,7 +108,7 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 	}
 
 	public void ActualizarValoresTabla( List<Cliente> listaClientes ) {
-		reporteClientes.Reiniciar();
+		reporteClientes.reiniciarInterfaz();
 			for( Cliente cliente : listaClientes ) {
 				clienteID.add( cliente.getIdCliente() );
 				nombre.add( cliente.getNombre() );
@@ -123,11 +123,12 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 	public void LimpiarCampos() {
 			for( int i=0, n = camposCliente.length; i<n; i++ )
 				camposCliente[i].setText("");
-		ReiniciarCaptura();
+		reiniciarInterfaz();
 	}
 	
-	private void ReiniciarCaptura(){
-		 reporteClientes.Reiniciar();
+	@Override
+	public void reiniciarInterfaz(){
+		 reporteClientes.reiniciarInterfaz();
 		 reporteClientes.RefrescarModelo();
 	}
 	

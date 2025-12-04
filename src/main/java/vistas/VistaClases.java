@@ -11,21 +11,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import componentes.PanelCreacionClases;
+import componentes.PanelHorarios;
 import componentes.PanelInstructores;
-import controladores.ControladorSelectorClientes;
-import controladores.SelectorCliente;
+import controladores.ControladorSelectorHorarios;
 import graficos.Formato;
 import graficos.JPlantilla;
-import servicios.GestionClientes;
+import interfaces.SelectorHorario;
+import servicios.GestionInstructores;
 
 public class VistaClases extends JDialog implements Formato {
 	private static final long serialVersionUID = 1L;
-	private static final int anchoVent=800, altoVent=800;
+	private static final int anchoVent=600, altoVent=600;
 
 	private JButton btnGuardar, btnReiniciar, btnSalir;
 	private PanelInstructores panelInstructores;
-	private PanelCreacionClases panelClases;
+	private PanelHorarios panelHorarios;
 	
 		public VistaClases() {
 			HazInterfaz();
@@ -46,20 +46,20 @@ public class VistaClases extends JDialog implements Formato {
 			JPanel pan = new JPanel();
 			pan.setLayout( new BoxLayout(pan, BoxLayout.Y_AXIS) );
 			
+			panelHorarios = new PanelHorarios();
+			panelHorarios.setPreferredSize(new Dimension(anchoVent, altoVent / 2));
+			pan.add( panelHorarios );
+			
 			panelInstructores = new PanelInstructores();
 			panelInstructores.setPreferredSize(new Dimension(anchoVent, altoVent / 2));
 			pan.add( panelInstructores );
-
-			panelClases = new PanelCreacionClases();
-			panelClases.setPreferredSize(new Dimension(anchoVent, altoVent / 2));
-			pan.add( panelClases );
 
 			JScrollPane scroll = new JScrollPane();
 			scroll.getViewport().add( pan );
 			scroll.setPreferredSize(new Dimension(anchoVent, altoVent));
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-			JLabel etiq = (JLabel) Formato.TextoAcentuado( Formato.EtiquetaCentranda( new JLabel("Modúlo de Reservaciones") ), colorAcento4 );	
+			JLabel etiq = (JLabel) Formato.TextoAcentuado( Formato.EtiquetaCentranda( new JLabel("Modúlo de Clases") ), colorAcento4 );	
 			add( etiq, BorderLayout.NORTH );
 			add(scroll, BorderLayout.CENTER);
 			add(panControl, BorderLayout.SOUTH);
@@ -74,17 +74,24 @@ public class VistaClases extends JDialog implements Formato {
 			setVisible( true );
 	    }
 	    
-	    public void ReiniciarInterfaz() {
+	    public void reiniciarInterfaz() {
 	    	panelInstructores.ReiniciarCaptura();
-	    	panelClases.ReiniciarCaptura();
+	    	panelHorarios.ReiniciarCaptura();
 	    }
 	
-	    public void abrirSelectorClientes( SelectorCliente listener, GestionClientes servicioClientes ) {
-	        VistaSelectorClientes v = new VistaSelectorClientes();
-	        new ControladorSelectorClientes( servicioClientes, v, listener );
+	    public void abrirSelectorHorario( SelectorHorario listener ) {
+	    	setVisible(false);
+	    	VistaSelectorHorarios v = new VistaSelectorHorarios();
+	        new ControladorSelectorHorarios( v, listener );
+	        setVisible(true);
 	    }
 	    
-	    public JButton getBtnReservar() {
+	    public void abrirSelectorInstructor( SelectorHorario listener
+	    , GestionInstructores servicioInstructores) {
+			
+		}
+	
+	    public JButton getBtnGuardar() {
 			return btnGuardar;
 		}
 
@@ -100,8 +107,8 @@ public class VistaClases extends JDialog implements Formato {
 			return panelInstructores;
 		}
 
-		public PanelCreacionClases getPanelClases() {
-			return panelClases;
+		public PanelHorarios getPanelHorarios() {
+			return panelHorarios;
 		}
 
 }

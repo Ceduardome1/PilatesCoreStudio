@@ -101,8 +101,9 @@ public class MiTablaEstatica extends JPanel implements Formato {
     public void agregaRenglon(String[] renglon) {
         modeloTabla.addRow(renglon);
     }
-
-    public void reiniciar() {
+    
+    @Override
+    public void reiniciarInterfaz() {
         modeloTabla.setRowCount(0);
     }
 

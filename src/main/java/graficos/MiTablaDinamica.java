@@ -105,7 +105,8 @@ public class MiTablaDinamica extends JPanel implements Formato {
 		 modeloTabla.EliminarRenglon( indice );
 	}
 	
-    public void Reiniciar() {
+	@Override
+    public void reiniciarInterfaz() {
         modeloTabla.Limpiar();
     }
 
@@ -234,5 +235,5 @@ public class MiTablaDinamica extends JPanel implements Formato {
 	public  List<List<?>> getColumnas() {
 		return modeloTabla.getDatos();
 	}
-    
+
 }

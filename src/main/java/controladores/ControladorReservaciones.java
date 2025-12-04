@@ -8,16 +8,28 @@ import java.util.List;
 import clases.Clase;
 import clientes.Cliente;
 import clientes.SaldoClases;
-import servicios.GestionClientes;
+import interfaces.SelectorClase;
+import interfaces.SelectorCliente;
+import servicios.*;
 import vistas.VistaReservaciones;
 public class ControladorReservaciones implements ActionListener, SelectorCliente, SelectorClase {
 
 	private VistaReservaciones vista;
 	private GestionClientes servicioClientes;
+	private GestionClases servicioClases;
+	private GestionSalas servicioSalas;
+	private GestionInstructores servicioInstructores;
+	private GestionReservaciones servicioReservaciones;
+	
+	private Clase clase;
+	private Cliente cliente;
 	
 	public ControladorReservaciones( GestionClientes servicioClientes, VistaReservaciones vista ) {
 		this.vista = vista;
 		this.servicioClientes = servicioClientes; 
+
+		clase=null;
+		cliente = null;
 		hazEscuchas();
 		vista.HazVentana();
 	}
@@ -35,11 +47,15 @@ public class ControladorReservaciones implements ActionListener, SelectorCliente
 	
 	@Override
 	public void onClienteSeleccionado( Cliente cliente ) {
+			if( cliente == null ) return;
+		this.cliente = cliente;
 		vista.getPanelClientes().MostrarCliente( cliente );
 	}
 	
 	@Override
 	public void onClaseSeleccionada( Clase clase ) {
+			if( clase == null ) return;
+		this.clase = clase;
 		vista.getPanelClases().MostrarInfoClase( clase );
 	}
 	
@@ -57,21 +73,25 @@ public class ControladorReservaciones implements ActionListener, SelectorCliente
 		}
 		
 		if( e.getSource() ==  vista.getPanelClases().getBtnSeleccionar() ) {
+			 vista.abrirSelectorClases( this, servicioClases, servicioInstructores );
 			return;
 		}
 		
 		if( e.getSource() ==  vista.getPanelClientes().getBtnLimpiar() ) {
-			vista.getPanelClientes().ReiniciarCaptura();
+			cliente = null;
+			vista.getPanelClientes().reiniciarInterfaz();
 			return;
 		}
 		
 		if( e.getSource() ==  vista.getPanelClases().getBtnLimpiar() ) {
-			vista.getPanelClases().ReiniciarCaptura();
+			clase = null;
+			vista.getPanelClases().reiniciarInterfaz();
 			return;
 		}
 		
 		if( e.getSource() ==  vista.getBtnLimpiar() ) {
-			vista.ReiniciarInterfaz();
+			cliente = null; clase = null;
+			vista.reiniciarInterfaz();
 			return;
 		}
 		

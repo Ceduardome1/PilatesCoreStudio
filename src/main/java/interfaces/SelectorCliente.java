@@ -1,4 +1,4 @@
-package controladores;
+package interfaces;
 import clientes.Cliente;
 
 public interface SelectorCliente {
