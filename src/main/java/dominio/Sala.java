@@ -5,13 +5,13 @@ public class Sala {
 	private final Integer idSala;
 	private final Sucursal sucursal;
 	private final int camasTotales;
-	private final int camasDisponibles;
+	private final int ultimaCamaAsignada; // SI ES == camasTotales ya no hay camas disponibles
 	
-	public Sala(Integer idSala, Sucursal sucursal, int camasTotales, int camasDisponibles) {
+	public Sala(Integer idSala, Sucursal sucursal, int camasTotales ) {
 		this.idSala = idSala;
 		this.sucursal = sucursal;
 		this.camasTotales = camasTotales;
-		this.camasDisponibles = camasDisponibles;
+		this.ultimaCamaAsignada = 0;
 	}
 
 	public Integer getIdSala() {
@@ -26,8 +26,8 @@ public class Sala {
 		return camasTotales;
 	}
 
-	public int getCamasDisponibles() {
-		return camasDisponibles;
+	public int getUltimaCamaAsignada() {
+		return ultimaCamaAsignada;
 	}
 	
 }

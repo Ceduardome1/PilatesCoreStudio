@@ -80,7 +80,7 @@ public class PanelClases extends JPanel implements Formato {
 		
 		String infoSala[] = { 
 			""+sala.getIdSala(),
-			""+sala.getCamasDisponibles()+" camas"
+			""+sala.getUltimaCamaAsignada()+" camas"
 		};
 		reporteSala.agregaRenglon( infoSala );
 		
