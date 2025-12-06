@@ -11,8 +11,8 @@ import javax.swing.event.ListSelectionListener;
 
 import actores.Instructor;
 import interfaces.SelectorInstructor;
-import rutinas.Rutinas;
 import servicios.ServicioInstructores;
+import utilerias.Rutinas;
 import vistas.VistaSelectorClientes;
 import vistas.VistaSelectorInstructores;
 

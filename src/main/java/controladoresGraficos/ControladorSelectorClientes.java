@@ -11,8 +11,8 @@ import javax.swing.event.ListSelectionListener;
 
 import actores.Cliente;
 import interfaces.SelectorCliente;
-import rutinas.Rutinas;
 import servicios.ServicioClientes;
+import utilerias.Rutinas;
 import vistas.VistaSelectorClientes;
 
 public class ControladorSelectorClientes implements ActionListener, ListSelectionListener {

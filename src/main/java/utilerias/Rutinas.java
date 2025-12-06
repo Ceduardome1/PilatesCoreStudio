@@ -3,7 +3,7 @@
  * ENTREGA: 24/09/25. 
  * DESCRIPCION: RUTINAS DE USO GENERAL.
  */
-package rutinas;
+package utilerias;
 
 import javax.swing.JOptionPane;
 

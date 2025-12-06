@@ -10,10 +10,10 @@ import dominio.Horario;
 import dominio.Sala;
 import interfaces.SelectorHorario;
 import interfaces.SelectorInstructor;
-import rutinas.Rutinas;
 import servicios.ServicioClases;
 import servicios.ServicioInstructores;
 import servicios.ServicioSalas;
+import utilerias.Rutinas;
 import vistas.VistaClases;
 
 public class ControladorVistaClases implements ActionListener, SelectorHorario, SelectorInstructor {

@@ -12,7 +12,7 @@ import dominio.HorarioLaboral;
 import dominio.ReglasNegocio;
 import interfaces.PoliticaHoras;
 import interfaces.SelectorHorario;
-import rutinas.Rutinas;
+import utilerias.Rutinas;
 import vistas.VistaSelectorHorarios;
 
 public class ControladorSelectorHorarios implements ActionListener {
