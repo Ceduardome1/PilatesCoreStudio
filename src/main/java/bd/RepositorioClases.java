@@ -36,10 +36,10 @@ public class RepositorioClases {
                 @Override
                 public boolean match(Clase c) {
 
-                    if (horario != null && !c.getHorario().equals(horario))
+                    if ( horario != null && !c.getHorario().equals(horario) )
                         return false;
 
-                    if (instructor != null && !c.getInstructor().equals(instructor))
+                    if ( instructor != null && !c.getInstructor().equals(instructor) )
                         return false;
 
                     return true;
@@ -48,7 +48,7 @@ public class RepositorioClases {
 
 	}
 
-	public List<Clase> consultarTodo( BD bd ) {
+	public List<Clase> buscarTodo( BD bd ) {
 		return bd.getConexion().query(Clase.class);
 	}
 

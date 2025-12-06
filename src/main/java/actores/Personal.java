@@ -40,4 +40,8 @@ public abstract class Personal {
 		return String.format( "%s %s % s", nombre, apellidoPat, apellidoMat );
 	}
 	
+	public boolean equals( Personal otro ) {
+		return otro.idPersonal == idPersonal;
+	}
+	
 }

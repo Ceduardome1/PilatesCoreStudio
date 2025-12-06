@@ -75,7 +75,7 @@ public class PanelClientes extends JPanel implements Formato {
 		SaldoClases saldo = cliente.getSaldoClases();
 		String infoSaldo[] = { 
 				saldo.getClasesDisponibles() + " clases",
-				saldo.getVigencia().toString()
+				saldo.mostarVigencia()
 		};
 		
 		reporteSaldoCliente.agregaRenglon( infoSaldo );

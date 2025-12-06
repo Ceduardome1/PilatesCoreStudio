@@ -5,19 +5,14 @@ import java.time.LocalDate;
 public class SaldoClases {
 
 	private int clasesDisponibles;
-	public void setClasesDisponibles(int clasesDisponibles) {
-		this.clasesDisponibles = clasesDisponibles;
-	}
 
-	public void setVigencia(LocalDate vigencia) {
-		this.vigencia = vigencia;
-	}
-
-	private LocalDate vigencia;
+	private long segundosVigencia;
+	private transient LocalDate vigencia;
 
 	public SaldoClases( int clasesDisponibles, LocalDate vigencia) {
 		this.clasesDisponibles = clasesDisponibles;
 		this.vigencia = vigencia;
+		segundosVigencia = vigencia.toEpochDay();
 	}
 
 	public int getClasesDisponibles() {
@@ -25,7 +20,17 @@ public class SaldoClases {
 	}
 
 	public LocalDate getVigencia() {
+			if (vigencia == null) 
+				vigencia = LocalDate.ofEpochDay( segundosVigencia );
 		return vigencia;
 	}
 
+	public String mostarVigencia() {
+		return getVigencia().toString();
+	}
+	
+	public void setClasesDisponibles(int clasesDisponibles) {
+		this.clasesDisponibles = clasesDisponibles;
+	}
+	
 }

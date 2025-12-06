@@ -18,4 +18,7 @@ public class Sucursal {
 		return direccion;
 	}
 	
+	public boolean equals( Sucursal otra ) {
+		return otra.idSucursal == idSucursal;
+	}
 }

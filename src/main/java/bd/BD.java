@@ -8,7 +8,11 @@ public class BD {
     private static final String ARCHIVO_BD = "pilates.db4o";
 
     private ObjectContainer conexion = null;
-
+    
+    public BD() {
+        crearConexion();
+    }
+    
     public synchronized ObjectContainer crearConexion() {
         try {
             if (conexion == null || conexion.ext().isClosed()) {
@@ -32,6 +36,9 @@ public class BD {
     }
 
     public ObjectContainer getConexion() {
+        if (conexion == null || conexion.ext().isClosed()) {
+            crearConexion();
+        }
         return conexion;
     }
 

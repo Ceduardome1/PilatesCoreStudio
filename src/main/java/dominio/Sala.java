@@ -30,4 +30,7 @@ public class Sala {
 		return ultimaCamaAsignada;
 	}
 	
+	public boolean equals( Sala otra ) {
+		return otra.idSala == idSala;
+	}
 }

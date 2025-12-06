@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import actores.Cliente;
+import bd.BD;
+import bd.RepositorioClientes;
 import dominio.Clase;
 import dominio.SaldoClases;
 import interfaces.SelectorClase;
@@ -103,31 +105,13 @@ public class ControladorVistaReservaciones implements ActionListener, SelectorCl
 	}
 
 	public static void main(String[] args) {
-			ServicioClientes servicioMock = new ServicioClientes( null, null ) {
-
-		        @Override
-		        public List<Cliente> filtrarClientes( Cliente filtro ) {
-		            return List.of(
-		                new Cliente(1, 551234567L, "JUAN", "PÉREZ", "LOPEZ", "correo1@mail.com", new SaldoClases( 5, LocalDate.now() ) ),
-		                new Cliente(2, 558765432L, "MARIA", "DÍAZ", "ROSALES", "correo2@mail.com", new SaldoClases( 5, LocalDate.now() )),
-		                new Cliente(3, 554433221L, "PEDRO", "MEZA", "HERNANDEZ", "correo3@mail.com", new SaldoClases( 5, LocalDate.now() ))
-		            );
-		        }
-	
-		        @Override
-		        public Cliente buscarCliente(Integer id) {
-		            switch (id) {
-		                case 1: return new Cliente(1, 551234567L, "JUAN", "PÉREZ", "LOPEZ", "correo1@mail.com", new SaldoClases( 5, LocalDate.now() ));
-		                case 2: return new Cliente(2, 558765432L, "MARIA", "DÍAZ", "ROSALES", "correo2@mail.com", new SaldoClases( 5, LocalDate.now() ));
-		                case 3: return new Cliente(3, 554433221L, "PEDRO", "MEZA", "HERNANDEZ", "correo3@mail.com", new SaldoClases( 5, LocalDate.now() ));
-		                default: return null;
-		            }
-		        }
-		            
-	        };
+			BD bd = new BD(); 
+			bd.crearConexion();
+			RepositorioClientes repoClientes = new RepositorioClientes();
+			ServicioClientes servicioClientes = new ServicioClientes( repoClientes, bd );
 	       
 	        VistaReservaciones vista = new VistaReservaciones();
-	    	new ControladorVistaReservaciones( servicioMock, vista );
-	    }
+	    	new ControladorVistaReservaciones( servicioClientes, vista );
+	}
 
 }

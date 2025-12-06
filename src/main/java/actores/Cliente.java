@@ -61,4 +61,8 @@ public class Cliente {
 			&& saldoClases.getVigencia().isBefore( LocalDate.now() );
 	}
 	
+	public boolean equals( Cliente otro ) {
+		return otro.idCliente == idCliente;
+	}
+	
 }

@@ -38,7 +38,7 @@ public class ServicioClases {
 
     public Integer generarIdClase() throws Exception {
     	
-        List<Clase> clases = repo.consultarTodo( bd );
+        List<Clase> clases = repo.buscarTodo( bd );
 
 	        if (clases.isEmpty()) {
 	            return 1;
