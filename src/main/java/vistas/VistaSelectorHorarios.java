@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePicker;
 
-import graficos.Formato;
-import graficos.JPlantilla;
+import componentesGraficos.JPlantilla;
+import interfaces.Formato;
 
 public class VistaSelectorHorarios extends JDialog implements Formato {
 	private static final long serialVersionUID = 1L;

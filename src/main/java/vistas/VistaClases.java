@@ -11,13 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import componentes.PanelHorarios;
-import componentes.PanelInstructores;
-import controladores.ControladorSelectorHorarios;
-import graficos.Formato;
-import graficos.JPlantilla;
+import componentesGraficos.JPlantilla;
+import componentesGraficos.PanelHorarios;
+import componentesGraficos.PanelInstructores;
+import controladoresGraficos.ControladorSelectorHorarios;
+import interfaces.Formato;
 import interfaces.SelectorHorario;
-import servicios.GestionInstructores;
+import servicios.ServicioInstructores;
 
 public class VistaClases extends JDialog implements Formato {
 	private static final long serialVersionUID = 1L;
@@ -87,7 +87,7 @@ public class VistaClases extends JDialog implements Formato {
 	    }
 	    
 	    public void abrirSelectorInstructor( SelectorHorario listener
-	    , GestionInstructores servicioInstructores) {
+	    , ServicioInstructores servicioInstructores) {
 			
 		}
 	

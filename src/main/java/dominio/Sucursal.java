@@ -2,7 +2,7 @@ package dominio;
 
 public class Sucursal {
 
-	private final int idSucursal;
+	private final Integer idSucursal;
 	private final Direccion direccion;
 	
 	public Sucursal(int idSucursal, Direccion direccion) {

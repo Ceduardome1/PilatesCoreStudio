@@ -4,17 +4,17 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import componentes.PanelClases;
-import componentes.PanelClientes;
-import controladores.ControladorSelectorClases;
-import controladores.ControladorSelectorClientes;
-import graficos.Formato;
-import graficos.JPlantilla;
+import componentesGraficos.JPlantilla;
+import componentesGraficos.PanelClases;
+import componentesGraficos.PanelClientes;
+import controladoresGraficos.ControladorSelectorClases;
+import controladoresGraficos.ControladorSelectorClientes;
+import interfaces.Formato;
 import interfaces.SelectorClase;
 import interfaces.SelectorCliente;
-import servicios.GestionClases;
-import servicios.GestionClientes;
-import servicios.GestionInstructores;
+import servicios.ServicioClases;
+import servicios.ServicioClientes;
+import servicios.ServicioInstructores;
 
 public class VistaReservaciones extends JDialog implements Formato {
 	private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public class VistaReservaciones extends JDialog implements Formato {
 	    	panelClases.reiniciarInterfaz();
 	    }
 	
-	    public void abrirSelectorClientes( SelectorCliente listener, GestionClientes servicioClientes ) {
+	    public void abrirSelectorClientes( SelectorCliente listener, ServicioClientes servicioClientes ) {
 	        setVisible(false);
 	    	VistaSelectorClientes v = new VistaSelectorClientes();
 	        new ControladorSelectorClientes( servicioClientes, v, listener );
@@ -84,8 +84,8 @@ public class VistaReservaciones extends JDialog implements Formato {
 	    }
 	    
 
-		public void abrirSelectorClases( SelectorClase listener, GestionClases servicioClases,
-		GestionInstructores servicioInstructores) {
+		public void abrirSelectorClases( SelectorClase listener, ServicioClases servicioClases,
+		ServicioInstructores servicioInstructores) {
 			setVisible(false);
 			VistaSelectorClases v = new VistaSelectorClases();
     		new ControladorSelectorClases(servicioClases, servicioInstructores, v, listener);

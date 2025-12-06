@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
 
-import clases.Clase;
-import componentes.PanelHorarios;
-import componentes.PanelInstructores;
+import actores.Instructor;
+import componentesGraficos.JPlantilla;
+import componentesGraficos.MiTablaDinamica;
+import componentesGraficos.PanelHorarios;
+import componentesGraficos.PanelInstructores;
+import dominio.Clase;
 import dominio.Horario;
-import graficos.Formato;
-import graficos.JPlantilla;
-import graficos.MiTablaDinamica;
-import personal.Instructor;
+import interfaces.Formato;
 
 public class VistaSelectorClases extends JDialog implements Formato {
 	
@@ -65,17 +65,29 @@ public class VistaSelectorClases extends JDialog implements Formato {
 		panelHorarios = new PanelHorarios();
 		
 		JComponent comps [][] = {
-			{ Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ) },		
 			{ panelHorarios, panelInstructores },
-			{ 
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
-				, campoClase, btnSeleccionar 
-			},
+		};
+		
+		JComponent comps1 [][] = {
+				{ 
+					Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
+					, campoClase, btnSeleccionar 
+				},
 			{ btnCancelar, btnLimpiar, btnConsultar }
 		};
 		
-		JPlantilla panControl = new JPlantilla( comps );
+		JLabel etiq = (JLabel) Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ); 
 		gbc.gridx = 0; gbc.gridy = 0;
+		gbc.weightx = 1; gbc.weighty=1;		
+		add( etiq, gbc);
+		
+		JPlantilla panControl = new JPlantilla( comps );
+		gbc.gridx = 0; gbc.gridy = 1;
+		gbc.weightx = 1; gbc.weighty=8;		
+		add( panControl, gbc);
+	
+		panControl = new JPlantilla( comps1 );
+		gbc.gridx = 0; gbc.gridy = 2;
 		gbc.weightx = 1; gbc.weighty=1;		
 		add( panControl, gbc);
 		
@@ -84,14 +96,11 @@ public class VistaSelectorClases extends JDialog implements Formato {
 		columnas.add( colFecha = new LinkedList< String >() );
 		columnas.add( colHora =  new LinkedList< String >() );
 		columnas.add( colInstructor = new LinkedList< String >() );
-
 		String [] titulos = { "ID", "Fecha", "Hora", "Instructor" };
 		reporteClases = new MiTablaDinamica( titulos, columnas,"Clases Encontradas" );
-		
-		
-		
-		gbc.gridy = 1;
-		gbc.weighty=49;
+	
+		gbc.gridy = 3;
+		gbc.weighty=45;
 		add( reporteClases, gbc );
 	}
 

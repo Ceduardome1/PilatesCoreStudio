@@ -1,5 +1,5 @@
 package interfaces;
-import personal.Instructor;
+import actores.Instructor;
 
 public interface SelectorInstructor {
 	public void onInstructorSeleccionado(Instructor instructor); 

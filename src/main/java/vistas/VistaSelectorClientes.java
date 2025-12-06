@@ -4,10 +4,11 @@ import java.awt.*;
 import java.util.List;
 import java.util.LinkedList;
 import javax.swing.*;
-import clientes.Cliente;
-import graficos.Formato;
-import graficos.JPlantilla;
-import graficos.MiTablaDinamica;
+
+import actores.Cliente;
+import componentesGraficos.JPlantilla;
+import componentesGraficos.MiTablaDinamica;
+import interfaces.Formato;
 
 public class VistaSelectorClientes extends JDialog implements Formato {
 	

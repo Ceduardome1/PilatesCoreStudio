@@ -1,5 +1,5 @@
 package interfaces;
-import clientes.Cliente;
+import actores.Cliente;
 
 public interface SelectorCliente {
 	void onClienteSeleccionado( Cliente cliente);
