@@ -23,20 +23,19 @@ public class DemoReservacion {
 		
 		RepositorioSalas repoSalas = new RepositorioSalas();
 		ServicioSalas servicioSalas = new ServicioSalas( bd, repoSalas );
-		
-		
+	
 		RepositorioClases repoClases = new RepositorioClases();
-		ServicioClases servicioClases = new ServicioClases( bd, repoClases, servicioSalas );
+		OrquestadorClases servicioClases = new OrquestadorClases( bd, repoClases, servicioSalas, servicioInstructores );
 		
 		RepositorioReservaciones repoReservaciones = new RepositorioReservaciones();
-		ServicioReservaciones servicioReservaciones = new ServicioReservaciones( bd, repoReservaciones, servicioClientes, servicioSalas );
+		OrquestadorReservaciones servicioReservaciones = new OrquestadorReservaciones( bd, repoReservaciones, servicioClientes, servicioSalas );
 		
 		Direccion direccion = new Direccion( 80000, (short)231, "Cristobal Colon", "Centro" );
 		Sucursal sucursal = new Sucursal( 1, direccion );
 		Recepcionista recepcionista = new Recepcionista( 1, "Cesar", "Meza", "Escobar", sucursal );
 		
 		ControladorReservacion controlador = new ControladorReservacion( 
-			recepcionista, servicioClientes, servicioInstructores, servicioClases, servicioReservaciones
+			recepcionista, servicioReservaciones, servicioClases
 		);
 		
         VistaReservaciones vista = new VistaReservaciones();

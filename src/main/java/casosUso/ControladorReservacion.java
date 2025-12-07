@@ -15,39 +15,33 @@ import interfaces.ServicioBusquedaInstructores;
 public class ControladorReservacion implements ServicioBusquedaClientes, ServicioBusquedaInstructores, ServicioBusquedaClases {
 
 	private final Recepcionista emisor;
-	private final ServicioClientes servicioClientes;
-	private final ServicioInstructores servicioInstructores;
-	private final ServicioClases servicioClases;
-	private final ServicioReservaciones servicioReservaciones;
+private final OrquestadorClases servicioClases;
+	private final OrquestadorReservaciones servicioReservaciones;
 	
 	
-	public ControladorReservacion( Recepcionista emisor, ServicioClientes servicioClientes, ServicioInstructores servicioInstructores,
-	ServicioClases servicioClases, ServicioReservaciones servicioReservaciones ) {
+	public ControladorReservacion( Recepcionista emisor,
+	OrquestadorReservaciones servicioReservaciones, OrquestadorClases servicioClases ) {
 		this.emisor = emisor;
-		this.servicioClientes = servicioClientes;
-		this.servicioInstructores = servicioInstructores;
 		this.servicioClases = servicioClases;
 		this.servicioReservaciones = servicioReservaciones;
 	}
 
-	public void iniciarReservación() {
-		
-	}
+	public void iniciarReservación() {}
 
 	public List< Cliente > buscarCliente( Cliente filtro ) throws Exception {
-		return servicioClientes.filtrarClientes( filtro );
+		return servicioReservaciones.filtrarClientes( filtro );
 	}
 
 	public Cliente seleccionarCliente( Integer idCliente )throws Exception {
-		return servicioClientes.buscarCliente( idCliente );
+		return servicioReservaciones.buscarCliente( idCliente );
 	}
 
 	public List< Instructor> buscarInstructor( Instructor filtro ) throws Exception {
-		return servicioInstructores.filtrarInstructores( filtro );
+		return servicioClases.filtrarInstructores( filtro );
 	}
 
 	public Instructor seleccionarInstructor( Integer idInstructor ) throws Exception {
-		return servicioInstructores.buscarInstructor( idInstructor );
+		return servicioClases.buscarInstructor( idInstructor );
 	}
 	
 	public List< Clase > buscarClase( Clase filtro ) throws Exception {

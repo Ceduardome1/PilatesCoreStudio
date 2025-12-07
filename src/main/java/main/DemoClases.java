@@ -9,7 +9,7 @@ import casosUso.ControladorClase;
 import controladoresGraficos.ControladorVistaClases;
 import dominio.Direccion;
 import dominio.Sucursal;
-import servicios.ServicioClases;
+import servicios.OrquestadorClases;
 import servicios.ServicioInstructores;
 import servicios.ServicioSalas;
 import vistas.VistaClases;
@@ -28,13 +28,13 @@ public class DemoClases {
 		ServicioSalas servicioSalas = new ServicioSalas( bd, repoSalas );
 		
 		RepositorioClases repoClases = new RepositorioClases();
-		ServicioClases servicioClases = new ServicioClases( bd, repoClases, servicioSalas );
+		OrquestadorClases servicioClases = new OrquestadorClases( bd, repoClases, servicioSalas, servicioInstructores );
 		
 		Direccion direccion = new Direccion( 80000, (short)231, "Cristobal Colón", "Centro" );
 		Sucursal sucursal = new Sucursal( 1, direccion );
 		Administrador admin = new Administrador( 1, "Cesar", "Meza", "Escobar", sucursal );
 		
-		ControladorClase controlador = new ControladorClase( admin, sucursal, servicioClases, servicioInstructores );
+		ControladorClase controlador = new ControladorClase( admin, sucursal, servicioClases );
 		
         VistaClases vista = new VistaClases();
   

@@ -11,14 +11,16 @@ import dominio.Horario;
 import dominio.Sala;
 import dominio.Sucursal;
 
-public class ServicioClases {
+public class OrquestadorClases {
 
 	private final BD bd;
 	private final RepositorioClases repo;
 
 	private final ServicioSalas servicioSalas;
-	
-	public ServicioClases( BD bd, RepositorioClases repo, ServicioSalas servicioSalas ) {
+	private final ServicioInstructores servicioInstructores;
+
+	public OrquestadorClases( BD bd, RepositorioClases repo, ServicioSalas servicioSalas, ServicioInstructores servicioInstructores ) {
+		this.servicioInstructores = servicioInstructores;
 		this.repo = repo;
 		this.bd = bd;
 		this.servicioSalas = servicioSalas;
@@ -52,25 +54,8 @@ public class ServicioClases {
 		
 		
 	}
-	  
-    public void registrarClase( Clase clase ) throws Exception {
-	    	try {
-	            repo.insertar( clase, bd );
-	        } catch (Exception e) {
-	        	bd.deshacerTransaccion();
-	            throw e;
-	        }
-    }
-
-    public List<Clase> filtrarClases( Clase filtro ) throws Exception {
-        return repo.buscar( filtro, bd );
-    }
-
-    public Clase buscarClase(Integer id) throws Exception {
-        return repo.buscar( id, bd );
-    }
-
-    public Integer generarIdClase() throws Exception {
+	 
+    private Integer generarIdClase() throws Exception {
     	
         List<Clase> clases = repo.buscarTodo( bd );
 
@@ -87,4 +72,29 @@ public class ServicioClases {
         return max + 1;
     }
     
+    private void registrarClase( Clase clase ) throws Exception {
+	    	try {
+	            repo.insertar( clase, bd );
+	        } catch (Exception e) {
+	        	bd.deshacerTransaccion();
+	            throw e;
+	        }
+    }
+
+    public List<Clase> filtrarClases( Clase filtro ) throws Exception {
+        return repo.buscar( filtro, bd );
+    }
+
+    public Clase buscarClase(Integer id) throws Exception {
+        return repo.buscar( id, bd );
+    }
+
+	public List<Instructor> filtrarInstructores( Instructor filtro ) throws Exception {
+		return servicioInstructores.filtrarInstructores( filtro ); 
+	}
+	
+	public Instructor buscarInstructor( Integer idInstructor ) throws Exception {
+		return servicioInstructores.buscarInstructor( idInstructor );
+	}
+
 }
