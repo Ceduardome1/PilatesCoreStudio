@@ -9,14 +9,14 @@ import componentesGraficos.PanelClases;
 import componentesGraficos.PanelClientes;
 import controladoresGraficos.ControladorSelectorClases;
 import controladoresGraficos.ControladorSelectorClientes;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 import interfaces.SelectorClase;
 import interfaces.SelectorCliente;
-import servicios.ServicioClases;
-import servicios.ServicioClientes;
-import servicios.ServicioInstructores;
+import interfaces.ServicioBusquedaClases;
+import interfaces.ServicioBusquedaClientes;
+import interfaces.ServicioBusquedaInstructores;
 
-public class VistaReservaciones extends JDialog implements Formato {
+public class VistaReservaciones extends JDialog implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private static final int anchoVent=800, altoVent=800;
 
@@ -29,12 +29,12 @@ public class VistaReservaciones extends JDialog implements Formato {
 		}
 			
 		private void HazInterfaz() {
-			btnLimpiar = (JButton) Formato.TextoAcentuado( new JButton("Limpiar Todo"), colorAcento2  );
-			btnReservar = (JButton) Formato.TextoAcentuado( new JButton("Reservar"), colorAcento3  );
-			btnSalir = (JButton) Formato.TextoAcentuado( new JButton("Salir"), colorCancelar  );
+			btnLimpiar = (JButton) TextoAcentuado( new JButton("Limpiar Todo"), colorAcento2  );
+			btnReservar = (JButton) TextoAcentuado( new JButton("Reservar"), colorAcento3  );
+			btnSalir = (JButton) TextoAcentuado( new JButton("Salir"), colorCancelar  );
 			
 			JComponent comps [][] = {
-				{ Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Operaciones Disponibles" ) ) ) },
+				{ TextoPrincipal( EtiquetaCentranda( new JLabel( "Operaciones Disponibles" ) ) ) },
 				{ btnSalir, btnLimpiar, btnReservar }
 			};
 			
@@ -56,13 +56,13 @@ public class VistaReservaciones extends JDialog implements Formato {
 			scroll.setPreferredSize(new Dimension(anchoVent, altoVent));
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-			JLabel etiq = (JLabel) Formato.TextoAcentuado( Formato.EtiquetaCentranda( new JLabel("Modúlo de Reservaciones") ), colorAcento4 );	
+			JLabel etiq = (JLabel) TextoAcentuado( EtiquetaCentranda( new JLabel("Modúlo de Reservaciones") ), colorAcento4 );	
 			add( etiq, BorderLayout.NORTH );
 			add(scroll, BorderLayout.CENTER);
 			add(panControl, BorderLayout.SOUTH);
 		}
 		
-	    public void HazVentana() {
+	    public void hacerVisible() {
 			setSize( anchoVent, altoVent );
 			setLocationRelativeTo(null);
 			setResizable( true ); 
@@ -71,24 +71,22 @@ public class VistaReservaciones extends JDialog implements Formato {
 			setVisible( true );
 	    }
 	    
-	    public void reiniciarInterfaz() {
-	    	panelClientes.reiniciarInterfaz();
-	    	panelClases.reiniciarInterfaz();
+	    public void reiniciar() {
+	    	panelClientes.reiniciar();
+	    	panelClases.reiniciar();
 	    }
 	
-	    public void abrirSelectorClientes( SelectorCliente listener, ServicioClientes servicioClientes ) {
+	    public void abrirSelectorClientes( ServicioBusquedaClientes servicioClientes, SelectorCliente listener ) {
 	        setVisible(false);
 	    	VistaSelectorClientes v = new VistaSelectorClientes();
-	        new ControladorSelectorClientes( servicioClientes, v, listener );
+	        new ControladorSelectorClientes( v, servicioClientes, listener );
 	        setVisible(true);
 	    }
 	    
-
-		public void abrirSelectorClases( SelectorClase listener, ServicioClases servicioClases,
-		ServicioInstructores servicioInstructores) {
+		public void abrirSelectorClases( ServicioBusquedaClases servicioClases, ServicioBusquedaInstructores servicioInstructores, SelectorClase listener ) {
 			setVisible(false);
 			VistaSelectorClases v = new VistaSelectorClases();
-    		new ControladorSelectorClases(servicioClases, servicioInstructores, v, listener);
+    		new ControladorSelectorClases( v, servicioClases, servicioInstructores, listener);
     		setVisible(true);
 		}
 		

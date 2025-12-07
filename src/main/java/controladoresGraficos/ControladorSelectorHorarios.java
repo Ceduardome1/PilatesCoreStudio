@@ -10,12 +10,13 @@ import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 import dominio.Horario;
 import dominio.HorarioLaboral;
 import dominio.ReglasNegocio;
+import interfaces.ControladorGrafico;
 import interfaces.PoliticaHoras;
 import interfaces.SelectorHorario;
 import utilerias.Rutinas;
 import vistas.VistaSelectorHorarios;
 
-public class ControladorSelectorHorarios implements ActionListener {
+public class ControladorSelectorHorarios implements ControladorGrafico, ActionListener {
 
 	private VistaSelectorHorarios vista; 
 	private SelectorHorario listenerHorario;
@@ -24,7 +25,7 @@ public class ControladorSelectorHorarios implements ActionListener {
 		this.listenerHorario = listenerHorario;
 		HazEscuchas();
 		LimitarHorarios();
-		vista.HazVentana();
+		vista.hacerVisible();
 	}
 	
 	private void HazEscuchas() {
@@ -80,23 +81,37 @@ public class ControladorSelectorHorarios implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 			if( e.getSource() == vista.getBtnLimpiar() ) {
-				vista.reiniciarInterfaz();
+				reiniciar();
 				return;
 			}
 		
 			if( e.getSource() == vista.getBtnCancelar() ) {
-				vista.dispose();
+				cerrar();
 				return;
 			}
 			
 			if( e.getSource() == vista.getBtnSeleccionar() ) {
-				Horario horario = obtenerHorario();
-					if( horario == null ) return;
-				listenerHorario.onHorarioSeleccionado( horario );
-				vista.dispose();
+				seleccionar();
 				return;
 			}
 		
+	}
+
+	@Override
+	public void reiniciar() {
+		vista.reiniciar();
+	}
+
+	@Override
+	public void cerrar() {
+		vista.dispose();
+	}
+
+	private void seleccionar() {
+		Horario horario = obtenerHorario();
+			if( horario == null ) return;
+		listenerHorario.onHorarioSeleccionado( horario );
+		vista.dispose();
 	}
 
 }

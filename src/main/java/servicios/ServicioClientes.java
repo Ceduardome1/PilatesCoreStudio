@@ -11,7 +11,7 @@ public class ServicioClientes {
 	private final BD bd;
 	private final RepositorioClientes repo;
 
-	public ServicioClientes( RepositorioClientes repo, BD bd ) {
+	public ServicioClientes( BD bd, RepositorioClientes repo ) {
 		this.repo = repo;
 		this.bd = bd;
 	}
@@ -28,7 +28,7 @@ public class ServicioClientes {
 	        
     	cliente.descontarClase();
     	
-    		if( !cliente.validarSaldo() )
+    		if( !cliente.esSaldoValido() )
     			throw new Exception( "El saldo de clases del cliente ya no es válido." );
  
     		try {

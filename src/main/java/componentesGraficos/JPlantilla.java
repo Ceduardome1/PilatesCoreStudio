@@ -7,11 +7,11 @@ package componentesGraficos;
 
 import javax.swing.*;
 
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
 import java.awt.*;
 
-public class JPlantilla extends JPanel implements Formato {
+public class JPlantilla extends JPanel implements ComponenteGrafico {
 private static final long serialVersionUID = 1L;
 
 	public JPlantilla( JComponent [][] mapa ) {
@@ -38,6 +38,9 @@ private static final long serialVersionUID = 1L;
 	}
 
 	@Override
-	public void reiniciarInterfaz() {}
+	public void reiniciar() {}
+
+	@Override
+	public void hacerVisible() {}
 	
 }

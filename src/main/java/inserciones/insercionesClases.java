@@ -26,11 +26,11 @@ public class insercionesClases {
                     new Direccion(6700, (short) 25, "Roma Norte", "Puebla")
             );
 
-            Sala sala1 = new Sala(1, suc, 10);
-            Sala sala2 = new Sala(2, suc, 12);
+            Sala sala1 = new Sala( 1, suc, 10 );
+            Sala sala2 = new Sala( 2, suc, 12 );
 
             Instructor ins = new Instructor(
-                    1, "Ana", "Morales", "Cruz", suc
+                    3, "Pedro", "Martinez", "Mendoza", suc
             );
 
             Administrador admin = new Administrador(

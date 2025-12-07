@@ -1,8 +1,3 @@
-/*
- * DOCENTE: DR.CLEMENTE GARCIA GERARDO. 	
- * ENTREGA: 09/09/25. 
- * DESCRIPCION: CONSTANTES Y RUTINAS DE ESTILOS.
- */
 package interfaces;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,9 +5,10 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
-public interface Formato {
+public interface ComponenteGrafico {
 
-	public abstract void reiniciarInterfaz();
+	public abstract void reiniciar();
+	public abstract void hacerVisible();
 	
 	public static final Font fontTitulo = new Font("CodeNewRoman Nerd Font",Font.BOLD,22)
 	, fontSubtitulo = new Font("CodeNewRoman Nerd Font", Font.PLAIN, 18)
@@ -44,7 +40,7 @@ public interface Formato {
 		, bordePanelFinal = BorderFactory.createMatteBorder( 3, 3, 3, 3, Color.BLACK )
 		, bordeVentana = BorderFactory.createEmptyBorder(0, 0, 0, 10);
 		
-		public static JLabel EtiquetaCentranda( JLabel comp ) {
+		public default JLabel EtiquetaCentranda( JLabel comp ) {
 		    String htmlTexto = "<html><div style='text-align: center;'>" +
 		    comp.getText().replace("\n", "<br>") +
 		    "</div></html>";
@@ -54,7 +50,7 @@ public interface Formato {
 			return comp;
 		}
 		
-		public static JLabel CambiarTextoEtiqueta( JLabel comp, String txt ) {
+		public default JLabel CambiarTextoEtiqueta( JLabel comp, String txt ) {
 		    String htmlTexto = "<html><div style='text-align: center;'>" +
 		    txt.replace("\n", "<br>") +
 		    "</div></html>";
@@ -62,11 +58,11 @@ public interface Formato {
 			return comp;
 		}
 	
-		public static JComponent TextoAcentuado( JComponent comp ) {
+		public default JComponent TextoAcentuado( JComponent comp ) {
 			return TextoAcentuado( comp, colorAcento1 );
 		}
 		
-		public static JComponent TextoAcentuado( JComponent comp, Color color ) {
+		public default JComponent TextoAcentuado( JComponent comp, Color color ) {
 			comp.setFont( fontBoton );
 			comp.setBackground(color);
 			comp.setForeground(colorLetraAcentos);
@@ -75,7 +71,7 @@ public interface Formato {
 			return comp;
 		}
 		
-		public static JComponent TextoPrincipal( JComponent comp ) {
+		public default JComponent TextoPrincipal( JComponent comp ) {
 			comp.setFont( fontTitulo );
 			comp.setBackground(colorPrimario);
 			comp.setForeground(colorLetraPrimario);
@@ -84,7 +80,7 @@ public interface Formato {
 			return comp;
 		}
 		
-		public static JComponent TextoSecundario( JComponent comp ) {
+		public default JComponent TextoSecundario( JComponent comp ) {
 			comp.setFont( fontSubtitulo );
 			comp.setBackground(colorSecundario);
 			comp.setForeground(colorLetraSecundario);
@@ -93,7 +89,7 @@ public interface Formato {
 			return comp;
 		}
 		
-		public static JComponent TextoTerciario( JComponent comp ) {
+		public default JComponent TextoTerciario( JComponent comp ) {
 			comp.setFont( fontSubtitulo );
 			comp.setBackground(colorTerciario);
 			comp.setForeground(colorLetraTerciario);
@@ -102,7 +98,7 @@ public interface Formato {
 			return comp;
 		}
 		
-		public static JComponent TextoContenido( JComponent comp ) {
+		public default JComponent TextoContenido( JComponent comp ) {
 			comp.setFont( fontContenido );
 			comp.setBackground(colorFondoContenido);
 			comp.setForeground(colorLetraContenido);

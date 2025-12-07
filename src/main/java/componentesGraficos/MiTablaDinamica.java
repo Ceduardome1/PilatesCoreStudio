@@ -12,11 +12,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
 import java.util.List;
 
-public class MiTablaDinamica extends JPanel implements Formato {
+public class MiTablaDinamica extends JPanel implements ComponenteGrafico {
     private static final long serialVersionUID = 1L;
 
     private JTable tabla;
@@ -109,10 +109,13 @@ public class MiTablaDinamica extends JPanel implements Formato {
 	}
 	
 	@Override
-    public void reiniciarInterfaz() {
+    public void reiniciar() {
         modeloTabla.Limpiar();
     }
 
+	@Override
+	public void hacerVisible() {}
+	
 	public JTable getJTable() {
 		return tabla;
 	}

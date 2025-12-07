@@ -10,9 +10,9 @@ import actores.Instructor;
 import dominio.Clase;
 import dominio.Horario;
 import dominio.Sala;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class PanelClases extends JPanel implements Formato {
+public class PanelClases extends JPanel implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSeleccionar, btnLimpiar;
 	private MiTablaEstatica reporteClase;
@@ -39,8 +39,8 @@ public class PanelClases extends JPanel implements Formato {
 		String encabezadosInstructor[] = { "ID", "Nombre", "Ap.Paterno", "Ap.Materno" };
 		reporteInstructor = new MiTablaEstatica( encabezadosInstructor, "Información del Instructor" );
 	
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Buscar Clase"), colorAcento1 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Clase"), colorAcento1 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteClase, reporteSala },
@@ -51,7 +51,7 @@ public class PanelClases extends JPanel implements Formato {
 			{ btnLimpiar, btnSeleccionar }
 		};
 		
-		JLabel etiq = (JLabel) Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel("Selector Clases") ) );	
+		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel("Selector Clases") ) );	
 		gbc.gridy = 0; gbc.weighty=1;
 		add( etiq, gbc );
 		
@@ -67,7 +67,8 @@ public class PanelClases extends JPanel implements Formato {
 	}
 	
 	public void MostrarInfoClase( Clase clase ) {
-		reiniciarInterfaz();
+			if( clase == null ) return;
+		reiniciar();
 		Horario hora = clase.getHorario();
 		Sala sala = clase.getSala();
 		Instructor inst = clase.getInstructor();
@@ -80,7 +81,7 @@ public class PanelClases extends JPanel implements Formato {
 		
 		String infoSala[] = { 
 			""+sala.getIdSala(),
-			""+sala.getUltimaCamaAsignada()+" camas"
+			""+sala.getCamasDisponibles()+" camas"
 		};
 		reporteSala.agregaRenglon( infoSala );
 		
@@ -94,12 +95,6 @@ public class PanelClases extends JPanel implements Formato {
 		
 	}
 	
-	@Override
-	public void reiniciarInterfaz() {
-		reporteClase.reiniciarInterfaz();
-		reporteInstructor.reiniciarInterfaz();
-	}
-	
 	public JButton getBtnSeleccionar() {
 		return btnSeleccionar;
 	}
@@ -107,4 +102,15 @@ public class PanelClases extends JPanel implements Formato {
 	public JButton getBtnLimpiar() {
 		return btnLimpiar;
 	}
+	
+	@Override
+	public void reiniciar() {
+		reporteSala.reiniciar();
+		reporteClase.reiniciar();
+		reporteInstructor.reiniciar();
+	}
+	
+	@Override
+	public void hacerVisible() {}
+
 }

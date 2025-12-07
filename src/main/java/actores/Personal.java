@@ -37,11 +37,11 @@ public abstract class Personal {
 	}
 	
 	public String toString() {
-		return String.format( "%s %s % s", nombre, apellidoPat, apellidoMat );
+		return String.format( "%s %s %s", nombre, apellidoPat, apellidoMat );
 	}
 	
-	public boolean equals( Personal otro ) {
-		return otro.idPersonal == idPersonal;
+	public boolean corresponde( Personal otro ) {
+		return otro!=null && otro.idPersonal == idPersonal;
 	}
 	
 }

@@ -10,11 +10,16 @@ import componentesGraficos.JPlantilla;
 import componentesGraficos.MiTablaDinamica;
 import componentesGraficos.PanelHorarios;
 import componentesGraficos.PanelInstructores;
+import controladoresGraficos.ControladorSelectorHorarios;
+import controladoresGraficos.ControladorSelectorInstructores;
 import dominio.Clase;
 import dominio.Horario;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
+import interfaces.SelectorHorario;
+import interfaces.SelectorInstructor;
+import interfaces.ServicioBusquedaInstructores;
 
-public class VistaSelectorClases extends JDialog implements Formato {
+public class VistaSelectorClases extends JDialog implements ComponenteGrafico {
 	
 	private static final int anchoVent=800, altoVent=800;
 	private static final long serialVersionUID = 1L;
@@ -27,6 +32,10 @@ public class VistaSelectorClases extends JDialog implements Formato {
 	private PanelHorarios panelHorarios;
 	private MiTablaDinamica reporteClases;
 	
+	public MiTablaDinamica getReporteClases() {
+		return reporteClases;
+	}
+
 	private LinkedList< Integer > colClaseID;
 	private LinkedList< String > colFecha;
 	private LinkedList< String > colHora;
@@ -36,7 +45,7 @@ public class VistaSelectorClases extends JDialog implements Formato {
 		HazInterfaz();
 	}
 
-    public void HazVentana() {
+    public void hacerVisible() {
 		setSize( anchoVent, altoVent );
 		setLocationRelativeTo(null);
 		setResizable( true ); 
@@ -54,12 +63,12 @@ public class VistaSelectorClases extends JDialog implements Formato {
 	    gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets( pxMargen, pxMargen, pxMargen, pxMargen);
 	
-		btnConsultar = (JButton) Formato.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar= (JButton) Formato.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
+		btnConsultar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
 		
-		campoClase = (JLabel) Formato.TextoContenido( new JLabel() );
+		campoClase = (JLabel) ComponenteGrafico.TextoContenido( new JLabel() );
 		
 		panelInstructores = new PanelInstructores();
 		panelHorarios = new PanelHorarios();
@@ -70,13 +79,13 @@ public class VistaSelectorClases extends JDialog implements Formato {
 		
 		JComponent comps1 [][] = {
 				{ 
-					Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
+					ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
 					, campoClase, btnSeleccionar 
 				},
 			{ btnCancelar, btnLimpiar, btnConsultar }
 		};
 		
-		JLabel etiq = (JLabel) Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ); 
+		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ); 
 		gbc.gridx = 0; gbc.gridy = 0;
 		gbc.weightx = 1; gbc.weighty=1;		
 		add( etiq, gbc);
@@ -105,7 +114,11 @@ public class VistaSelectorClases extends JDialog implements Formato {
 	}
 
 	public void ActualizarValoresTabla( List<Clase> listaClases ) {
-		reporteClases.reiniciarInterfaz();
+					
+		reporteClases.reiniciar();
+
+			if( listaClases == null ) return;
+
 			for( Clase clase : listaClases ) {
 				colClaseID.add( clase.getIdClase() );
 			Horario horario = clase.getHorario();
@@ -114,23 +127,27 @@ public class VistaSelectorClases extends JDialog implements Formato {
 			Instructor instructor = clase.getInstructor();
 				colInstructor.add( instructor.toString() );
 			}
+			
 		reporteClases.RefrescarModelo();
 	}
 	
 	public void LimpiarCampos() {
-		Formato.CambiarTextoEtiqueta( campoClase, "" );
-		reiniciarInterfaz();
+		ComponenteGrafico.CambiarTextoEtiqueta( campoClase, "" );
+		reiniciar();
 	}
 	
 	@Override
-	public void reiniciarInterfaz(){
-		 reporteClases.reiniciarInterfaz();
+	public void reiniciar(){
+		 ComponenteGrafico.CambiarTextoEtiqueta( campoClase, "" );
+		 panelInstructores.reiniciar();
+		 panelHorarios.reiniciar();
+		 reporteClases.reiniciar();
 		 reporteClases.RefrescarModelo();
 	}
 	
 	public Integer RecuperarIdClienteSeleccionado( int renglon ) {
 		Integer id = colClaseID.get(renglon);
-		Formato.CambiarTextoEtiqueta( campoClase, ""+id );
+		ComponenteGrafico.CambiarTextoEtiqueta( campoClase, ""+id );
 		return id;
 	}
 
@@ -166,10 +183,19 @@ public class VistaSelectorClases extends JDialog implements Formato {
 		return panelHorarios;
 	}
 	
-	public static void main( String args[] ) {
-		VistaSelectorClases vista = new VistaSelectorClases();
-		vista.HazVentana();
+	public void abrirSelectorInstructor( ServicioBusquedaInstructores servicioInstructores,
+	SelectorInstructor listener ) {
+		 	setVisible(false);
+	    	VistaSelectorInstructores v = new VistaSelectorInstructores();
+	        new ControladorSelectorInstructores( v, servicioInstructores, listener );
+	        setVisible(true);
 	}
-	
+
+	public void abrirSelectorHorario( SelectorHorario listener ) {
+		setVisible(false);
+    	VistaSelectorHorarios v = new VistaSelectorHorarios();
+        new ControladorSelectorHorarios( v, listener );
+        setVisible(true);
+	}
 	
 }

@@ -1,4 +1,7 @@
-package consultas;
+package main;
+import consultas.consultaClases;
+import consultas.consultaClientes;
+import consultas.consultaInstructores;
 import inserciones.*;
 public class MainConsulta {
 

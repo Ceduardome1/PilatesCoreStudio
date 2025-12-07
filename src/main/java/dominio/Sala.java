@@ -5,7 +5,7 @@ public class Sala {
 	private final Integer idSala;
 	private final Sucursal sucursal;
 	private final int camasTotales;
-	private final int ultimaCamaAsignada; // SI ES == camasTotales ya no hay camas disponibles
+	private final int ultimaCamaAsignada;
 	
 	public Sala(Integer idSala, Sucursal sucursal, int camasTotales ) {
 		this.idSala = idSala;
@@ -30,7 +30,11 @@ public class Sala {
 		return ultimaCamaAsignada;
 	}
 	
-	public boolean equals( Sala otra ) {
+	public int getCamasDisponibles() {
+		return camasTotales - ultimaCamaAsignada;
+	}
+	
+	public boolean corresponde( Sala otra ) {
 		return otra.idSala == idSala;
 	}
 }

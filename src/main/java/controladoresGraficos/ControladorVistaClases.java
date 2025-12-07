@@ -3,45 +3,32 @@ package controladoresGraficos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import actores.Administrador;
 import actores.Instructor;
-import dominio.Clase;
+import controladoresCasosUso.ControladorClase;
 import dominio.Horario;
-import dominio.Sala;
+import interfaces.ControladorGrafico;
 import interfaces.SelectorHorario;
 import interfaces.SelectorInstructor;
-import servicios.ServicioClases;
-import servicios.ServicioInstructores;
-import servicios.ServicioSalas;
 import utilerias.Rutinas;
 import vistas.VistaClases;
 
-public class ControladorVistaClases implements ActionListener, SelectorHorario, SelectorInstructor {
+public class ControladorVistaClases implements ControladorGrafico, ActionListener, SelectorHorario, SelectorInstructor {
 
 	private final VistaClases vista;
-	private final ServicioInstructores servicioInstructores;
-	private final ServicioClases servicioClases;
-	private final ServicioSalas servicioSalas;
+	private final ControladorClase controlador;
 	
-	private final Administrador responsable;
 	private Horario horario;
-	private Sala sala;
 	private Instructor instructor;
 	
-	public ControladorVistaClases(VistaClases vista, ServicioInstructores servicioInstructores, ServicioClases servicioClases,
-	ServicioSalas servicioSalas, Administrador responsable) {
+	public ControladorVistaClases( VistaClases vista, ControladorClase controlador ) {
 		this.vista = vista;
-		this.servicioInstructores = servicioInstructores;
-		this.servicioClases = servicioClases;
-		this.servicioSalas = servicioSalas;
-		this.responsable = responsable;
+		this.controlador = controlador;
 		
 		horario=null;
-		sala=null;
 		instructor=null;
 		
 		hazEscuchas();
-		vista.HazVentana();
+		vista.hacerVisible();
 	}
 
 	private void hazEscuchas() {
@@ -56,45 +43,77 @@ public class ControladorVistaClases implements ActionListener, SelectorHorario, 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-			if ( e.getSource() ==  vista.getBtnGuardar() ){
-				guardarClase();
-				return;
-			};
-			
+
 			if ( e.getSource() == vista.getPanelHorarios().getBtnSeleccionar() ){
 				vista.abrirSelectorHorario( this );
 				return;
 			};
 			
 			if ( e.getSource() == vista.getPanelInstructores().getBtnSeleccionar() ){
-				vista.abrirSelectorInstructor( this, servicioInstructores );
+				vista.abrirSelectorInstructor( controlador, this );
+				return;
+			};
+			
+			if ( e.getSource() ==  vista.getBtnGuardar() ){
+				registrar();
 				return;
 			};
 			
 			if ( e.getSource() == vista.getBtnLimpiar() ) {
-				vista.reiniciarInterfaz();
-				this.horario = null;
-				this.instructor = null;
+				reiniciar();
 				return;
 			};
 			
 			if ( e.getSource() == vista.getPanelHorarios().getBtnLimpiar() ){
-				vista.getPanelHorarios().reiniciarInterfaz();
-				this.horario = null;
+				reiniciarHorario();
 				return;
 			};
 			
 			if ( e.getSource() == vista.getPanelInstructores().getBtnLimpiar() ){
-				vista.getPanelInstructores().reiniciarInterfaz();
-				this.instructor = null;
+				reiniciarInstructor();
 				return;
 			};
 			
 			if ( e.getSource() == vista.getBtnSalir() ){
-				vista.dispose();
+				cerrar();
 				return;
 			};	
+	}
+
+	@Override
+	public void onHorarioSeleccionado(Horario horario) {
+			if( horario == null) return;
+		this.horario = horario;
+		vista.getPanelHorarios().MostrarHorario( horario );
+	}
+
+	@Override
+	public void onInstructorSeleccionado(Instructor instructor) {
+			if( instructor == null) return;
+		this.instructor = instructor;
+		vista.getPanelInstructores().MostrarInstructor(instructor);
+	}
+
+	@Override
+	public void reiniciar() {
+		this.horario = null;
+		this.instructor = null;
+		vista.reiniciar();
+	}
+
+	@Override
+	public void cerrar() {
+		vista.dispose();
+	}
+	
+	private void reiniciarInstructor() {
+		vista.getPanelInstructores().reiniciar();
+		this.instructor = null;
+	}
+
+	private void reiniciarHorario() {
+		vista.getPanelHorarios().reiniciar();
+		this.horario = null;
 	}
 
 	private boolean validar() {
@@ -112,57 +131,22 @@ public class ControladorVistaClases implements ActionListener, SelectorHorario, 
 		 return true;
 	}
 	
-	private Sala asignarSala() {
-		
-		try {
-			
-			return sala = servicioSalas.asignarSala( horario );
-			
-		} catch (Exception e) {
-			Rutinas.MensajeError("Ocurrio un error al asignar la sala.");
-			vista.reiniciarInterfaz();
-			return null;
-		}
-		
-	}
-	
-	private void guardarClase() {
+	private void registrar() {
 		
 			if( !validar() ) return;
-			
-			if( asignarSala() == null ) {
-				Rutinas.MensajeError( "No hay salas disponibles en ese horario." );
-				return;
-			}
-				
+
 			try {
 				
-				Integer idClase = servicioClases.generarIdClase(); 
-				
-				servicioClases.registrarClase( 
-					new Clase( idClase, sala, instructor, horario, responsable ) 
-				);
+				controlador.registrarClase( instructor, horario );
 				
 			} catch (Exception e) {
-				Rutinas.MensajeError("Ocurrio un error al guardar la clase.");
-				vista.reiniciarInterfaz();
+				Rutinas.MensajeError( e.getMessage() );
+				reiniciar();
 				return;
 			}
 		
-	}
-
-	@Override
-	public void onHorarioSeleccionado(Horario horario) {
-			if( horario == null) return;
-		this.horario = horario;
-		vista.getPanelHorarios().MostrarHorario( horario );
-	}
-
-	@Override
-	public void onInstructorSeleccionado(Instructor instructor) {
-			if( instructor == null) return;
-		this.instructor = instructor;
-		vista.getPanelInstructores().MostrarInstructor(instructor);
+		Rutinas.Mensaje( "Información", "La Clase fue registrada con éxito!." );
+		reiniciar();
 	}
 	
 }

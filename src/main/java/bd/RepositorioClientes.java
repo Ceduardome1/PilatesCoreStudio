@@ -23,14 +23,14 @@ public class RepositorioClientes {
 
     }
 
-    public List< Cliente> buscar(Cliente cliente, BD bd) throws Exception {
-
-        Integer clienteId = cliente.getIdCliente();
-        String nombre = cliente.getNombre();
-        String ap1 = cliente.getApellidoPaterno();
-        String ap2 = cliente.getApellidoMaterno();
-        Long telefono = cliente.getTelefono();
-        String correo = cliente.getCorreo();
+    public List< Cliente> buscar(Cliente filtro, BD bd) throws Exception {
+    		if( filtro == null ) return null;
+        Integer clienteId = filtro.getIdCliente();
+        String nombre = filtro.getNombre();
+        String ap1 = filtro.getApellidoPaterno();
+        String ap2 = filtro.getApellidoMaterno();
+        Long telefono = filtro.getTelefono();
+        String correo = filtro.getCorreo();
 
         ObjectContainer conexion = bd.getConexion();
 

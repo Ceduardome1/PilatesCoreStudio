@@ -30,9 +30,12 @@ public class Horario {
 		return hora;
 	}
 
-	public boolean equals( Horario otro ) {
-		return otro.segundosFecha == segundosFecha
-			&& otro.segundosHora == segundosHora;
+	public int comparar(Horario otro) {
+
+	    long esteTotal = this.segundosFecha * 86400 + this.segundosHora;
+	    long otroTotal = otro.segundosFecha * 86400 + otro.segundosHora;
+
+	    return Long.compare(esteTotal, otroTotal);
 	}
 	
 	public String mostrarFecha() {

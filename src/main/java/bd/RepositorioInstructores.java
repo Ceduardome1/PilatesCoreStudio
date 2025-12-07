@@ -25,17 +25,20 @@ public class RepositorioInstructores {
 
     }
 
-    public List< Instructor> buscar( Instructor instructor, BD bd ) throws Exception {
+    public List< Instructor> buscar( Instructor filtro, BD bd ) throws Exception {
 
-        Integer idPersonal = instructor.getIdPersonal();
-        String nombre = instructor.getNombre();
-        String apellidoPat = instructor.getApellidoPat();
-        String apellidoMat = instructor.getApellidoMat();
-        Sucursal sucursal = instructor.getSucursal();
+    		if( filtro == null ) return null;
+        
+    	Integer idPersonal = filtro.getIdPersonal();
+        String nombre = filtro.getNombre();
+        String apellidoPat = filtro.getApellidoPat();
+        String apellidoMat = filtro.getApellidoMat();
+        Sucursal sucursal = filtro.getSucursal();
 
         ObjectContainer conexion = bd.getConexion();
 
-        return conexion.query(new Predicate<Instructor>() {
+        return conexion.query( new Predicate<Instructor>() {
+        	
             public boolean match(Instructor c) {
 
                 if ( idPersonal != null && !c.getIdPersonal().equals(idPersonal)) {
@@ -50,7 +53,7 @@ public class RepositorioInstructores {
                 if ( apellidoMat != null && !c.getApellidoMat().equalsIgnoreCase(apellidoMat)) {
                     return false;
                 }
-                if ( sucursal != null && !c.getSucursal().equals( sucursal ) ) {
+                if ( sucursal != null && !c.getSucursal().corresponde( sucursal ) ) {
                     return false;
                 }
 
@@ -58,10 +61,6 @@ public class RepositorioInstructores {
             }
         });
 
-    }
-
-    public void actualizar(Instructor instructor, BD bd) throws Exception {
-        bd.getConexion().store(instructor);
     }
 
 }

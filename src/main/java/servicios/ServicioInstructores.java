@@ -11,7 +11,7 @@ public class ServicioInstructores {
 	private final BD conexion;
 	private final RepositorioInstructores repo;
 
-    public ServicioInstructores(BD conexion, RepositorioInstructores repo) {
+    public ServicioInstructores( BD conexion, RepositorioInstructores repo ) {
 		this.conexion = conexion;
 		this.repo = repo;
 	}
@@ -21,8 +21,7 @@ public class ServicioInstructores {
     }
 
 	public List<Instructor> filtrarInstructores( Instructor filtro ) throws Exception {
-
-		return null;
+		return repo.buscar( filtro, conexion );
 	}
     
     

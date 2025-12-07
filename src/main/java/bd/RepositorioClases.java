@@ -28,7 +28,12 @@ public class RepositorioClases {
          return lista.isEmpty() ? null : lista.get(0);
 	}
 	
-	public List< Clase > buscar( Horario horario, Instructor instructor, BD bd ) throws Exception {
+	public List< Clase > buscar( Clase filtro, BD bd ) throws Exception {
+		
+			if( filtro == null ) return null;
+		
+		Horario horario = filtro.getHorario();
+		Instructor instructor = filtro.getInstructor();
 		
 		ObjectContainer conexion = bd.getConexion();
 
@@ -36,10 +41,10 @@ public class RepositorioClases {
                 @Override
                 public boolean match(Clase c) {
 
-                    if ( horario != null && !c.getHorario().equals(horario) )
+                    if ( horario != null && c.getHorario().comparar( horario ) < 0 )
                         return false;
 
-                    if ( instructor != null && !c.getInstructor().equals(instructor) )
+                    if ( instructor != null && !c.getInstructor().corresponde( instructor ) )
                         return false;
 
                     return true;

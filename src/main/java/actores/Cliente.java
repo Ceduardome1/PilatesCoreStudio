@@ -56,13 +56,13 @@ public class Cliente {
 		);
 	}
 	
-	public boolean validarSaldo() {
+	public boolean esSaldoValido() {
 		return saldoClases.getClasesDisponibles() > 0
-			&& saldoClases.getVigencia().isBefore( LocalDate.now() );
+			&& !saldoClases.getVigencia().isBefore( LocalDate.now() );
 	}
 	
-	public boolean equals( Cliente otro ) {
-		return otro.idCliente == idCliente;
+	public boolean corresponde( Cliente otro ) {
+		return otro!=null && otro.idCliente == idCliente;
 	}
 	
 }

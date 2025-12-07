@@ -17,5 +17,10 @@ public class ServicioReservaciones {
 	public void registrarReservacion( Reservacion reservacion) throws Exception {
 		
 	}
+
+	public Integer generarIdReservacion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -7,9 +7,9 @@ import java.awt.Insets;
 import javax.swing.*;
 
 import actores.Instructor;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class PanelInstructores extends JPanel implements Formato {
+public class PanelInstructores extends JPanel implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSeleccionar, btnLimpiar;
 	private MiTablaEstatica reporteInstructor;
@@ -28,8 +28,8 @@ public class PanelInstructores extends JPanel implements Formato {
 		String encabezadosInstructor[] = { "ID", "Nombre", "Ap.Paterno", "Ap.Materno" };
 		reporteInstructor = new MiTablaEstatica( encabezadosInstructor, "Información del Instructor" );
 	
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Buscar Instructor"), colorAcento1 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Instructor"), colorAcento1 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteInstructor}
@@ -51,7 +51,8 @@ public class PanelInstructores extends JPanel implements Formato {
 	}
 	
 	public void MostrarInstructor( Instructor inst ) {
-		ReiniciarCaptura();
+			if( inst == null ) return;
+		reiniciar();
 		String infoInst[] = { 
 				""+inst.getIdPersonal(),
 				inst.getNombre(),
@@ -60,10 +61,6 @@ public class PanelInstructores extends JPanel implements Formato {
 		};
 		reporteInstructor.agregaRenglon( infoInst );
 		
-	}
-
-	public void ReiniciarCaptura() {
-		reporteInstructor.reiniciarInterfaz();
 	}
 	
 	public JButton getBtnSeleccionar() {
@@ -74,8 +71,10 @@ public class PanelInstructores extends JPanel implements Formato {
 		return btnLimpiar;
 	}
 
-	public void reiniciarInterfaz() {
-		reporteInstructor.reiniciarInterfaz();
-		
+	public void reiniciar() {
+		reporteInstructor.reiniciar();
 	}
+	
+	@Override
+	public void hacerVisible() {}
 }

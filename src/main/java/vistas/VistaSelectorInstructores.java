@@ -8,9 +8,9 @@ import javax.swing.*;
 import actores.Instructor;
 import componentesGraficos.JPlantilla;
 import componentesGraficos.MiTablaDinamica;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class VistaSelectorInstructores extends JDialog implements Formato {
+public class VistaSelectorInstructores extends JDialog implements ComponenteGrafico {
 	
 	private static final int anchoVent=800, altoVent=800;
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class VistaSelectorInstructores extends JDialog implements Formato {
 		HazInterfaz();
 	}
 
-    public void HazVentana() {
+    public void hacerVisible() {
 		setSize( anchoVent, altoVent );
 		setLocationRelativeTo(null);
 		setResizable( true ); 
@@ -53,27 +53,27 @@ public class VistaSelectorInstructores extends JDialog implements Formato {
 	    gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets( pxMargen, pxMargen, pxMargen, pxMargen);
 	
-		btnConsultar = (JButton) Formato.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar= (JButton) Formato.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
+		btnConsultar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
 		
 			for( int i=0, n = camposInstructor.length; i<n; i++ ) 
-				camposInstructor[i] = (JTextField) Formato.TextoContenido( new JTextField() );
+				camposInstructor[i] = (JTextField) ComponenteGrafico.TextoContenido( new JTextField() );
 		
 		String etiquetas[] = { "ID", "Nombre", "Apellido Paterno", "Apellido Materno" };
 		JComponent comps [][] = {
-			{ Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Consulta de Instructores" ) ) ) },
+			{ ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Consulta de Instructores" ) ) ) },
 			{ 
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
 				, camposInstructor[0],
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
 			    , camposInstructor[1]
 			},
 			{ 
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
 				, camposInstructor[2],
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
 				, camposInstructor[3]		
 			},		
 			{ btnLimpiar, btnSeleccionar },
@@ -99,7 +99,8 @@ public class VistaSelectorInstructores extends JDialog implements Formato {
 	}
 
 	public void ActualizarValoresTabla( List<Instructor> listaInstructores ) {
-		reporteInstructores.reiniciarInterfaz();
+		reporteInstructores.reiniciar();
+			if( listaInstructores == null ) return;
 			for( Instructor instructor : listaInstructores ) {
 				colInstructorID.add( instructor.getIdPersonal() );
 				colNombre.add( instructor.getNombre() );
@@ -112,12 +113,12 @@ public class VistaSelectorInstructores extends JDialog implements Formato {
 	public void LimpiarCampos() {
 			for( int i=0, n = camposInstructor.length; i<n; i++ )
 				camposInstructor[i].setText("");
-		reiniciarInterfaz();
+		reiniciar();
 	}
 	
 	@Override
-	public void reiniciarInterfaz(){
-		 reporteInstructores.reiniciarInterfaz();
+	public void reiniciar(){
+		 reporteInstructores.reiniciar();
 		 reporteInstructores.RefrescarModelo();
 	}
 	

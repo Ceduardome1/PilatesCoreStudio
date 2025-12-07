@@ -6,7 +6,8 @@ public final class ReglasNegocio {
 	, limInfDiasCreacionClase = 0
 	, limSupDiasCreacionClase = 60
 	, margenMinutosCreacionClase = 60
-	, minDuracionClase = 60;
+	, minDuracionClase = 60
+	, capacidadCamasSala = 50;
 	
 	public static int getMinanticipacionreserva() {
 		return minAnticipacionReserva;
@@ -26,6 +27,10 @@ public final class ReglasNegocio {
 
 	public static int getMinDuracionClase() {
 		return minDuracionClase;
+	}
+
+	public static int getCapacidadCamasSala() {
+		return capacidadCamasSala;
 	}
 	
 }

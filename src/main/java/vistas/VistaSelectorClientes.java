@@ -8,9 +8,9 @@ import javax.swing.*;
 import actores.Cliente;
 import componentesGraficos.JPlantilla;
 import componentesGraficos.MiTablaDinamica;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class VistaSelectorClientes extends JDialog implements Formato {
+public class VistaSelectorClientes extends JDialog implements ComponenteGrafico {
 	
 	private static final int anchoVent=800, altoVent=800;
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 		HazInterfaz();
 	}
 
-    public void HazVentana() {
+    public void hacerVisible() {
 		setSize( anchoVent, altoVent );
 		setLocationRelativeTo(null);
 		setResizable( true ); 
@@ -54,33 +54,33 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 	    gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets( pxMargen, pxMargen, pxMargen, pxMargen);
 	
-		btnConsultar = (JButton) Formato.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar= (JButton) Formato.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
+		btnConsultar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
 		
 			for( int i=0, n = camposCliente.length; i<n; i++ ) 
-				camposCliente[i] = (JTextField) Formato.TextoContenido( new JTextField() );
+				camposCliente[i] = (JTextField) ComponenteGrafico.TextoContenido( new JTextField() );
 		
 		String etiquetas[] = { "ID", "Nombre", "Apellido Paterno", "Apellido Materno", "Telefono", "Correo" };
 		JComponent comps [][] = {
-			{ Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Consulta de Clientes" ) ) ) },
+			{ ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Consulta de Clientes" ) ) ) },
 			{ 
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
 				, camposCliente[0],
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
 			    , camposCliente[1]
 			},
 			{ 
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
 				, camposCliente[2],
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
 				, camposCliente[3]		
 			},		
 			{ 		
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[4]+":" ) ) ) 
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[4]+":" ) ) ) 
 				, camposCliente[4]	
-				, Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel( etiquetas[5]+":" ) ) ) 
+				, ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[5]+":" ) ) ) 
 				, camposCliente[5]	
 			},	
 			{ btnLimpiar, btnSeleccionar },
@@ -109,7 +109,10 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 	}
 
 	public void ActualizarValoresTabla( List<Cliente> listaClientes ) {
-		reporteClientes.reiniciarInterfaz();
+		reporteClientes.reiniciar();
+		
+			if( listaClientes == null ) return;
+		
 			for( Cliente cliente : listaClientes ) {
 				clienteID.add( cliente.getIdCliente() );
 				nombre.add( cliente.getNombre() );
@@ -124,12 +127,12 @@ public class VistaSelectorClientes extends JDialog implements Formato {
 	public void LimpiarCampos() {
 			for( int i=0, n = camposCliente.length; i<n; i++ )
 				camposCliente[i].setText("");
-		reiniciarInterfaz();
+		reiniciar();
 	}
 	
 	@Override
-	public void reiniciarInterfaz(){
-		 reporteClientes.reiniciarInterfaz();
+	public void reiniciar(){
+		 reporteClientes.reiniciar();
 		 reporteClientes.RefrescarModelo();
 	}
 	

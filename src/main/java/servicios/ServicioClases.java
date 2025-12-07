@@ -1,19 +1,16 @@
 package servicios;
 
 import java.util.List;
-
-import actores.Instructor;
 import bd.BD;
 import bd.RepositorioClases;
 import dominio.Clase;
-import dominio.Horario;
 
 public class ServicioClases {
 
 	private final BD bd;
 	private final RepositorioClases repo;
 
-	public ServicioClases( RepositorioClases repo, BD bd ) {
+	public ServicioClases( BD bd, RepositorioClases repo ) {
 		this.repo = repo;
 		this.bd = bd;
 	}
@@ -28,8 +25,8 @@ public class ServicioClases {
     	bd.confirmarTransaccion();
     }
 
-    public List<Clase> filtrarClases( Horario horario, Instructor instructor ) throws Exception {
-        return repo.buscar( horario, instructor, bd );
+    public List<Clase> filtrarClases( Clase filtro ) throws Exception {
+        return repo.buscar( filtro, bd );
     }
 
     public Clase buscarClase(Integer id) throws Exception {

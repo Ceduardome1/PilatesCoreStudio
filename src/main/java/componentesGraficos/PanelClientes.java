@@ -6,9 +6,9 @@ import javax.swing.*;
 
 import actores.Cliente;
 import dominio.SaldoClases;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class PanelClientes extends JPanel implements Formato {
+public class PanelClientes extends JPanel implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	
 	private JButton btnSeleccionar, btnLimpiar;
@@ -32,8 +32,8 @@ public class PanelClientes extends JPanel implements Formato {
 		String encabezadosSaldo[] = { "Clases Disponibles", "Vigencia" };
 		reporteSaldoCliente = new MiTablaEstatica( encabezadosSaldo, "Saldo del cliente" );
 	
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Buscar Cliente"), colorAcento1 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Cliente"), colorAcento1 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteCliente },
@@ -44,7 +44,7 @@ public class PanelClientes extends JPanel implements Formato {
 			{ btnLimpiar, btnSeleccionar }
 		};
 		
-		JLabel etiq = (JLabel) Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel("Selector Clientes") ) );	
+		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel("Selector Clientes") ) );	
 		gbc.gridy = 0; gbc.weighty=1;
 		add( etiq, gbc );
 		
@@ -60,7 +60,8 @@ public class PanelClientes extends JPanel implements Formato {
 	}
 	
 	public void MostrarCliente( Cliente cliente ) {
-		reiniciarInterfaz();
+			if( cliente == null ) return;
+		reiniciar();
 		String infoCliente[] = { 
 				""+cliente.getIdCliente(),
 				cliente.getNombre(),
@@ -84,9 +85,9 @@ public class PanelClientes extends JPanel implements Formato {
 	}
 
 	@Override
-	public void reiniciarInterfaz() {
-		reporteCliente.reiniciarInterfaz();
-		reporteSaldoCliente.reiniciarInterfaz();
+	public void reiniciar() {
+		reporteCliente.reiniciar();
+		reporteSaldoCliente.reiniciar();
 	}
 	
 	public JButton getBtnSeleccionar() {
@@ -97,4 +98,7 @@ public class PanelClientes extends JPanel implements Formato {
 		return btnLimpiar;
 	}
 
+	@Override
+	public void hacerVisible() {}
+	
 }

@@ -2,10 +2,10 @@ package componentesGraficos;
 import java.awt.*;
 import javax.swing.*;
 import dominio.Horario;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
 
-public class PanelHorarios extends JPanel implements Formato {
+public class PanelHorarios extends JPanel implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSeleccionar, btnLimpiar;
 	private MiTablaEstatica reporteHorarios;
@@ -24,8 +24,8 @@ public class PanelHorarios extends JPanel implements Formato {
 		String encabezadosClientes[] = { "Fecha", "Hora" };
 		reporteHorarios = new MiTablaEstatica( encabezadosClientes, "Horario de la Clase" );
 		
-		btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Ingresar Horario"), colorAcento1 );
-		btnLimpiar= (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Ingresar Horario"), colorAcento1 );
+		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteHorarios },
@@ -47,16 +47,13 @@ public class PanelHorarios extends JPanel implements Formato {
 	}
 	
 	public void MostrarHorario( Horario hora ) {
-		ReiniciarCaptura();
+			if( hora == null ) return;
+		reiniciar();
 		String infoCliente[] = { 
 				hora.mostrarFecha(),
 				hora.mostrarHora()
 		};
 		reporteHorarios.agregaRenglon( infoCliente );
-	}
-
-	public void ReiniciarCaptura() {
-		reporteHorarios.reiniciarInterfaz();
 	}
 	
 	public JButton getBtnSeleccionar() {
@@ -67,7 +64,10 @@ public class PanelHorarios extends JPanel implements Formato {
 		return btnLimpiar;
 	}
 
-	public void reiniciarInterfaz() {
-		reporteHorarios.reiniciarInterfaz();
+	public void reiniciar() {
+		reporteHorarios.reiniciar();
 	}
+	
+	@Override
+	public void hacerVisible() {}
 }

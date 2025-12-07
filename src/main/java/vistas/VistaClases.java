@@ -1,4 +1,4 @@
-package vistas;
+	package vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,11 +15,13 @@ import componentesGraficos.JPlantilla;
 import componentesGraficos.PanelHorarios;
 import componentesGraficos.PanelInstructores;
 import controladoresGraficos.ControladorSelectorHorarios;
-import interfaces.Formato;
+import controladoresGraficos.ControladorSelectorInstructores;
+import interfaces.ComponenteGrafico;
 import interfaces.SelectorHorario;
-import servicios.ServicioInstructores;
+import interfaces.SelectorInstructor;
+import interfaces.ServicioBusquedaInstructores;
 
-public class VistaClases extends JDialog implements Formato {
+public class VistaClases extends JDialog implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private static final int anchoVent=600, altoVent=600;
 
@@ -32,12 +34,12 @@ public class VistaClases extends JDialog implements Formato {
 		}
 			
 		private void HazInterfaz() {
-			btnReiniciar = (JButton) Formato.TextoAcentuado( new JButton("Reiniciar Captura"), colorAcento2  );
-			btnGuardar = (JButton) Formato.TextoAcentuado( new JButton("Guardar Clase"), colorAcento3  );
-			btnSalir = (JButton) Formato.TextoAcentuado( new JButton("Salir"), colorCancelar  );
+			btnReiniciar = (JButton) TextoAcentuado( new JButton("Reiniciar Captura"), colorAcento2  );
+			btnGuardar = (JButton) TextoAcentuado( new JButton("Guardar Clase"), colorAcento3  );
+			btnSalir = (JButton) TextoAcentuado( new JButton("Salir"), colorCancelar  );
 			
 			JComponent comps [][] = {
-				{ Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Operaciones Disponibles" ) ) ) },
+				{ TextoPrincipal( EtiquetaCentranda( new JLabel( "Operaciones Disponibles" ) ) ) },
 				{ btnSalir, btnReiniciar, btnGuardar }
 			};
 			
@@ -59,13 +61,13 @@ public class VistaClases extends JDialog implements Formato {
 			scroll.setPreferredSize(new Dimension(anchoVent, altoVent));
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-			JLabel etiq = (JLabel) Formato.TextoAcentuado( Formato.EtiquetaCentranda( new JLabel("Modúlo de Clases") ), colorAcento4 );	
+			JLabel etiq = (JLabel) TextoAcentuado( EtiquetaCentranda( new JLabel("Modúlo de Clases") ), colorAcento4 );	
 			add( etiq, BorderLayout.NORTH );
 			add(scroll, BorderLayout.CENTER);
 			add(panControl, BorderLayout.SOUTH);
 		}
 		
-	    public void HazVentana() {
+	    public void hacerVisible() {
 			setSize( anchoVent, altoVent );
 			setLocationRelativeTo(null);
 			setResizable( true ); 
@@ -74,9 +76,9 @@ public class VistaClases extends JDialog implements Formato {
 			setVisible( true );
 	    }
 	    
-	    public void reiniciarInterfaz() {
-	    	panelInstructores.ReiniciarCaptura();
-	    	panelHorarios.ReiniciarCaptura();
+	    public void reiniciar() {
+	    	panelInstructores.reiniciar();
+	    	panelHorarios.reiniciar();
 	    }
 	
 	    public void abrirSelectorHorario( SelectorHorario listener ) {
@@ -86,9 +88,11 @@ public class VistaClases extends JDialog implements Formato {
 	        setVisible(true);
 	    }
 	    
-	    public void abrirSelectorInstructor( SelectorHorario listener
-	    , ServicioInstructores servicioInstructores) {
-			
+	    public void abrirSelectorInstructor( ServicioBusquedaInstructores servicioInstructores, SelectorInstructor listener ) {
+	    	setVisible(false);
+	    	VistaSelectorInstructores v = new VistaSelectorInstructores();
+	        new ControladorSelectorInstructores( v, servicioInstructores, listener );
+	        setVisible(true);
 		}
 	
 	    public JButton getBtnGuardar() {

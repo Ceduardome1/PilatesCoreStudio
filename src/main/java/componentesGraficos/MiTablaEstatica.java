@@ -7,9 +7,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class MiTablaEstatica extends JPanel implements Formato {
+public class MiTablaEstatica extends JPanel implements ComponenteGrafico {
     private static final long serialVersionUID = 1L;
 
     private JTable tabla;
@@ -105,10 +105,13 @@ public class MiTablaEstatica extends JPanel implements Formato {
     }
     
     @Override
-    public void reiniciarInterfaz() {
+    public void reiniciar() {
         modeloTabla.setRowCount(0);
     }
 
+	@Override
+	public void hacerVisible() {}
+	
     private class MultiLineCellRenderer extends JTextPane implements TableCellRenderer {
         private static final long serialVersionUID = 1L;
 

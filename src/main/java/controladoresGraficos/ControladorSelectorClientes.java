@@ -10,15 +10,16 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import actores.Cliente;
+import interfaces.ControladorGrafico;
 import interfaces.SelectorCliente;
-import servicios.ServicioClientes;
+import interfaces.ServicioBusquedaClientes;
 import utilerias.Rutinas;
 import vistas.VistaSelectorClientes;
 
-public class ControladorSelectorClientes implements ActionListener, ListSelectionListener {
+public class ControladorSelectorClientes implements ControladorGrafico, ActionListener, ListSelectionListener {
 	
 	private SelectorCliente clienteListener;
-	private ServicioClientes servicioClientes;
+	private ServicioBusquedaClientes servicioClientes;
 	private VistaSelectorClientes vista;
 	private Integer idSeleccionado;
 	
@@ -26,7 +27,7 @@ public class ControladorSelectorClientes implements ActionListener, ListSelectio
 	private Integer idBuscar;
 	private Long telBusqueda;
 	
-	public ControladorSelectorClientes( ServicioClientes servicioClientes, VistaSelectorClientes vista, SelectorCliente clienteListener ) {
+	public ControladorSelectorClientes( VistaSelectorClientes vista, ServicioBusquedaClientes servicioClientes, SelectorCliente clienteListener ) {
 		this.vista = vista;
 		this.clienteListener = clienteListener;
 		this.servicioClientes = servicioClientes;
@@ -43,9 +44,71 @@ public class ControladorSelectorClientes implements ActionListener, ListSelectio
 		vista.getReporteClientes().getJTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		vista.getReporteClientes().getJTable().getSelectionModel()
 		.addListSelectionListener( this );
-		vista.HazVentana();
+		vista.hacerVisible();
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if( e.getSource() == vista.getBtnConsultar() ) {
+			consultar();
+			return;
+		}
+		
+		if( e.getSource() == vista.getBtnSeleccionar() ) {
+			seleccionar();
+			return;
+		}
+		
+		if( e.getSource() == vista.getBtnLimpiar() ) {
+			reiniciar();
+			return;
+		}
+		
+		if( e.getSource() == vista.getBtnCancelar() ) {
+			cerrar();
+			return;
+		}
+		
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+	    if (e.getValueIsAdjusting()) return;
+	    int fila = vista.getReporteClientes().getJTable().getSelectedRow();
+	    idSeleccionado = (fila >= 0) ? 
+	    	vista.RecuperarIdClienteSeleccionado(fila) : null;
+	}
+
+	@Override
+	public void reiniciar() {
+		idSeleccionado = null;
+		vista.LimpiarCampos();
+	}
+
+	@Override
+	public void cerrar() {
+		vista.dispose();
+	}
+	
+	private void consultar() {
+			if( !ValidarCampos() ) return;
+		List<Cliente> clientes = consultarClientes();
+			if( clientes == null ) return;
+		vista.ActualizarValoresTabla( clientes );	
+	}
+	
+	private void seleccionar() {
+			if( idSeleccionado == null ) {
+				Rutinas.MensajeError("No hay ningún cliente seleccionado.");
+				return;
+			}
+		Cliente cliente = consultarCliente();
+			if( cliente == null ) return;
+		clienteListener.onClienteSeleccionado( cliente );
+		vista.dispose();
+	}
+
 	private boolean ValidarCampos() {
 		JTextField[] camposCliente = vista.getCamposCliente();
 		
@@ -77,78 +140,45 @@ public class ControladorSelectorClientes implements ActionListener, ListSelectio
 	
 	private List<Cliente> consultarClientes() {
 		List<Cliente> clientes = null;
+		
 			try {
-				clientes = servicioClientes.filtrarClientes( new Cliente( idBuscar, telBusqueda, campos[1], campos[2], campos[3], campos[5], null ) );
+				
+				Cliente filtro = new Cliente( idBuscar, telBusqueda, campos[1], campos[2], campos[3], campos[5], null );
+				clientes = servicioClientes.buscarCliente( filtro );
+					
 					if ( clientes.isEmpty() ) {
 						Rutinas.Mensaje("Aviso", "No hay coincidencias para el criterio de busqueda seleccionado.");
 						return null;
 					}
+					
 			} catch (Exception e) {
 				Rutinas.MensajeError("Ocurrio un error al consultar el cliente.");
-				vista.reiniciarInterfaz();
+				vista.reiniciar();
 				return null;
 			}
+			
 		return clientes;
 	}
 	
 	private Cliente consultarCliente() {
 		Cliente cliente = null;
+			
 			try {
-				cliente = servicioClientes.buscarCliente( idSeleccionado );
+				
+				cliente = servicioClientes.seleccionarCliente( idSeleccionado );
+					
 					if ( cliente == null ) {
 						Rutinas.MensajeError("El cliente seleccionado ya no existe en la BD.");
 						return null;
 					}
+					
 			} catch (Exception e) {
 				Rutinas.MensajeError("Ocurrio un error al consultar el cliente.");
-				vista.reiniciarInterfaz();
+				vista.reiniciar();
 				return null;
 			}
+			
 		return cliente;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		if( e.getSource() == vista.getBtnConsultar() ) {
-				if(! ValidarCampos() ) return;
-			List<Cliente> clientes = consultarClientes();
-				if( clientes == null ) return;
-			vista.ActualizarValoresTabla( clientes );	
-			return;
-		}
-		
-		if( e.getSource() == vista.getBtnSeleccionar() ) {
-				if( idSeleccionado == null ) {
-					Rutinas.MensajeError("No hay ningún cliente seleccionado.");
-					return;
-				}
-			Cliente cliente = consultarCliente();
-				if( cliente == null ) return;
-			clienteListener.onClienteSeleccionado( cliente );
-			vista.dispose();
-			return;
-		}
-		
-		if( e.getSource() == vista.getBtnLimpiar() ) {
-			idSeleccionado = null;
-			vista.LimpiarCampos();
-			return;
-		}
-		
-		if( e.getSource() == vista.getBtnCancelar() ) {
-			vista.dispose();
-			return;
-		}
-		
-	}
-
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-	    if (e.getValueIsAdjusting()) return;
-	    int fila = vista.getReporteClientes().getJTable().getSelectedRow();
-	    idSeleccionado = (fila >= 0) ? 
-	    	vista.RecuperarIdClienteSeleccionado(fila) : null;
-	}
-
+	
 }

@@ -14,9 +14,9 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePicker;
 
 import componentesGraficos.JPlantilla;
-import interfaces.Formato;
+import interfaces.ComponenteGrafico;
 
-public class VistaSelectorHorarios extends JDialog implements Formato {
+public class VistaSelectorHorarios extends JDialog implements ComponenteGrafico {
 	private static final long serialVersionUID = 1L;
 	private static final int anchoVent=250, altoVent=200;
 
@@ -28,7 +28,7 @@ public class VistaSelectorHorarios extends JDialog implements Formato {
 		HazInterfaz();
 	}
 	
-    public void HazVentana() {
+    public void hacerVisible() {
 		setSize( anchoVent, altoVent );
 		setLocationRelativeTo(null);
 		setResizable( true ); 
@@ -38,9 +38,9 @@ public class VistaSelectorHorarios extends JDialog implements Formato {
     }
     
 	private void HazInterfaz() {
-		btnLimpiar = (JButton) Formato.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar = (JButton) Formato.TextoAcentuado( new JButton("Volver"), colorCancelar );
-    	btnSeleccionar = (JButton) Formato.TextoAcentuado( new JButton("Ingresar"), colorAcento3 );
+		btnLimpiar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Volver"), colorCancelar );
+    	btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Ingresar"), colorAcento3 );
 
 		JPanel panCtl = new JPanel( new GridBagLayout() );
 		
@@ -56,18 +56,18 @@ public class VistaSelectorHorarios extends JDialog implements Formato {
 		
 		JComponent comps [][] = {
 			{
-				Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel("Fecha:") ) )
+				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel("Fecha:") ) )
 				,panelFecha
 			},
 		    { 
-		    	Formato.TextoSecundario( Formato.EtiquetaCentranda( new JLabel("Hora:") ) )
+		    	ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel("Hora:") ) )
 		    	,panelHora
 			}
 		};
 		
 		
 		gbc.gridx = 0; gbc.gridy = 0; gbc.weighty = 1;
-		JLabel etiq = (JLabel) Formato.TextoPrincipal( Formato.EtiquetaCentranda( new JLabel( "Horario" ) ) );
+		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Horario" ) ) );
 		panCtl.add( etiq, gbc );
 		
 		gbc.gridy = 1; gbc.weighty = 2;
@@ -103,7 +103,7 @@ public class VistaSelectorHorarios extends JDialog implements Formato {
 	}
 	
 	@Override
-	public void reiniciarInterfaz() {
+	public void reiniciar() {
 		panelFecha.clear();
 		panelHora.clear();
 	}

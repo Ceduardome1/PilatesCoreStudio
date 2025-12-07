@@ -33,8 +33,8 @@ public class Clase {
 	public Integer getIdClase() {
 		return idClase;
 	}
-	public boolean equals( Clase otra ) {
-		return otra.idClase == idClase;
+	public boolean corresponde( Clase otra ) {
+		return otra!=null && otra.idClase == idClase;
 	}
 	
 }
