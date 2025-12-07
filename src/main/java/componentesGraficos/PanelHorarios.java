@@ -24,8 +24,8 @@ public class PanelHorarios extends JPanel implements ComponenteGrafico {
 		String encabezadosClientes[] = { "Fecha", "Hora" };
 		reporteHorarios = new MiTablaEstatica( encabezadosClientes, "Horario de la Clase" );
 		
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Ingresar Horario"), colorAcento1 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Ingresar Horario"), colorAcento1 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteHorarios },

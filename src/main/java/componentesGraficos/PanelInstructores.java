@@ -28,8 +28,8 @@ public class PanelInstructores extends JPanel implements ComponenteGrafico {
 		String encabezadosInstructor[] = { "ID", "Nombre", "Ap.Paterno", "Ap.Materno" };
 		reporteInstructor = new MiTablaEstatica( encabezadosInstructor, "Información del Instructor" );
 	
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Instructor"), colorAcento1 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Buscar Instructor"), colorAcento1 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteInstructor}

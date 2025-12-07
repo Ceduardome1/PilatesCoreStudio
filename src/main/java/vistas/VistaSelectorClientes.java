@@ -54,33 +54,33 @@ public class VistaSelectorClientes extends JDialog implements ComponenteGrafico 
 	    gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets( pxMargen, pxMargen, pxMargen, pxMargen);
 	
-		btnConsultar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
+		btnConsultar = (JButton) TextoAcentuado( new JButton("Buscar"), colorAcento1 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar= (JButton) TextoAcentuado( new JButton("Cancelar"), colorCancelar );
 		
 			for( int i=0, n = camposCliente.length; i<n; i++ ) 
-				camposCliente[i] = (JTextField) ComponenteGrafico.TextoContenido( new JTextField() );
+				camposCliente[i] = (JTextField) TextoContenido( new JTextField() );
 		
 		String etiquetas[] = { "ID", "Nombre", "Apellido Paterno", "Apellido Materno", "Telefono", "Correo" };
 		JComponent comps [][] = {
-			{ ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Consulta de Clientes" ) ) ) },
+			{ TextoPrincipal( EtiquetaCentranda( new JLabel( "Consulta de Clientes" ) ) ) },
 			{ 
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
+				TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[0]+":" ) ) )
 				, camposCliente[0],
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
+				TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[1]+":" ) ) ) 
 			    , camposCliente[1]
 			},
 			{ 
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
+				TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[2]+":" ) ) ) 
 				, camposCliente[2],
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
+				TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[3]+":" ) ) ) 
 				, camposCliente[3]		
 			},		
 			{ 		
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[4]+":" ) ) ) 
+				TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[4]+":" ) ) ) 
 				, camposCliente[4]	
-				, ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( etiquetas[5]+":" ) ) ) 
+				, TextoSecundario( EtiquetaCentranda( new JLabel( etiquetas[5]+":" ) ) ) 
 				, camposCliente[5]	
 			},	
 			{ btnLimpiar, btnSeleccionar },

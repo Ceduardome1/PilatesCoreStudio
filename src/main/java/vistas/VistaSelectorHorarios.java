@@ -38,9 +38,9 @@ public class VistaSelectorHorarios extends JDialog implements ComponenteGrafico 
     }
     
 	private void HazInterfaz() {
-		btnLimpiar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Volver"), colorCancelar );
-    	btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Ingresar"), colorAcento3 );
+		btnLimpiar = (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar = (JButton) TextoAcentuado( new JButton("Volver"), colorCancelar );
+    	btnSeleccionar = (JButton) TextoAcentuado( new JButton("Ingresar"), colorAcento3 );
 
 		JPanel panCtl = new JPanel( new GridBagLayout() );
 		
@@ -56,18 +56,18 @@ public class VistaSelectorHorarios extends JDialog implements ComponenteGrafico 
 		
 		JComponent comps [][] = {
 			{
-				ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel("Fecha:") ) )
+				TextoSecundario( EtiquetaCentranda( new JLabel("Fecha:") ) )
 				,panelFecha
 			},
 		    { 
-		    	ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel("Hora:") ) )
+		    	TextoSecundario( EtiquetaCentranda( new JLabel("Hora:") ) )
 		    	,panelHora
 			}
 		};
 		
 		
 		gbc.gridx = 0; gbc.gridy = 0; gbc.weighty = 1;
-		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Horario" ) ) );
+		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel( "Horario" ) ) );
 		panCtl.add( etiq, gbc );
 		
 		gbc.gridy = 1; gbc.weighty = 2;

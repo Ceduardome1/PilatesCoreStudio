@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import actores.Instructor;
-import controladoresCasosUso.ControladorClase;
+import casosUso.ControladorClase;
 import dominio.Horario;
 import interfaces.ControladorGrafico;
 import interfaces.SelectorHorario;

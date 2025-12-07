@@ -1,3 +1,4 @@
+
 package componentesGraficos;
 
 import java.awt.GridBagConstraints;
@@ -39,8 +40,8 @@ public class PanelClases extends JPanel implements ComponenteGrafico {
 		String encabezadosInstructor[] = { "ID", "Nombre", "Ap.Paterno", "Ap.Materno" };
 		reporteInstructor = new MiTablaEstatica( encabezadosInstructor, "Información del Instructor" );
 	
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Clase"), colorAcento1 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Buscar Clase"), colorAcento1 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteClase, reporteSala },
@@ -51,7 +52,7 @@ public class PanelClases extends JPanel implements ComponenteGrafico {
 			{ btnLimpiar, btnSeleccionar }
 		};
 		
-		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel("Selector Clases") ) );	
+		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel("Selector Clases") ) );	
 		gbc.gridy = 0; gbc.weighty=1;
 		add( etiq, gbc );
 		

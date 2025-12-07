@@ -63,12 +63,12 @@ public class VistaSelectorClases extends JDialog implements ComponenteGrafico {
 	    gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets( pxMargen, pxMargen, pxMargen, pxMargen);
 	
-		btnConsultar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar"), colorAcento1 );
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		btnCancelar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Cancelar"), colorCancelar );
+		btnConsultar = (JButton) TextoAcentuado( new JButton("Buscar"), colorAcento1 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Seleccionar"), colorAcento3 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnCancelar= (JButton) TextoAcentuado( new JButton("Cancelar"), colorCancelar );
 		
-		campoClase = (JLabel) ComponenteGrafico.TextoContenido( new JLabel() );
+		campoClase = (JLabel) TextoContenido( new JLabel() );
 		
 		panelInstructores = new PanelInstructores();
 		panelHorarios = new PanelHorarios();
@@ -79,13 +79,13 @@ public class VistaSelectorClases extends JDialog implements ComponenteGrafico {
 		
 		JComponent comps1 [][] = {
 				{ 
-					ComponenteGrafico.TextoSecundario( ComponenteGrafico.EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
+					TextoSecundario( EtiquetaCentranda( new JLabel( "ID Clase Seleccionada:" ) ) ) 
 					, campoClase, btnSeleccionar 
 				},
 			{ btnCancelar, btnLimpiar, btnConsultar }
 		};
 		
-		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ); 
+		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel( "Filtrar Clases Disponibles" ) ) ); 
 		gbc.gridx = 0; gbc.gridy = 0;
 		gbc.weightx = 1; gbc.weighty=1;		
 		add( etiq, gbc);
@@ -132,13 +132,13 @@ public class VistaSelectorClases extends JDialog implements ComponenteGrafico {
 	}
 	
 	public void LimpiarCampos() {
-		ComponenteGrafico.CambiarTextoEtiqueta( campoClase, "" );
+		CambiarTextoEtiqueta( campoClase, "" );
 		reiniciar();
 	}
 	
 	@Override
 	public void reiniciar(){
-		 ComponenteGrafico.CambiarTextoEtiqueta( campoClase, "" );
+		 CambiarTextoEtiqueta( campoClase, "" );
 		 panelInstructores.reiniciar();
 		 panelHorarios.reiniciar();
 		 reporteClases.reiniciar();
@@ -147,7 +147,7 @@ public class VistaSelectorClases extends JDialog implements ComponenteGrafico {
 	
 	public Integer RecuperarIdClienteSeleccionado( int renglon ) {
 		Integer id = colClaseID.get(renglon);
-		ComponenteGrafico.CambiarTextoEtiqueta( campoClase, ""+id );
+		CambiarTextoEtiqueta( campoClase, ""+id );
 		return id;
 	}
 

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import actores.Cliente;
-import controladoresCasosUso.ControladorReservacion;
+import casosUso.ControladorReservacion;
 import dominio.Clase;
 import interfaces.ControladorGrafico;
 import interfaces.SelectorClase;

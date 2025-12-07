@@ -2,9 +2,9 @@ package main;
 
 import actores.Recepcionista;
 import bd.*;
+import casosUso.ControladorReservacion;
 import servicios.*;
 import vistas.VistaReservaciones;
-import controladoresCasosUso.ControladorReservacion;
 import controladoresGraficos.ControladorVistaReservaciones;
 import dominio.Direccion;
 import dominio.Sucursal;

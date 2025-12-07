@@ -5,7 +5,7 @@ import bd.BD;
 import bd.RepositorioClases;
 import bd.RepositorioInstructores;
 import bd.RepositorioSalas;
-import controladoresCasosUso.ControladorClase;
+import casosUso.ControladorClase;
 import controladoresGraficos.ControladorVistaClases;
 import dominio.Direccion;
 import dominio.Sucursal;

@@ -1,4 +1,4 @@
-package controladoresCasosUso;
+package casosUso;
 
 import java.util.List;
 

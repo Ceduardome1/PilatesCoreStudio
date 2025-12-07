@@ -32,8 +32,8 @@ public class PanelClientes extends JPanel implements ComponenteGrafico {
 		String encabezadosSaldo[] = { "Clases Disponibles", "Vigencia" };
 		reporteSaldoCliente = new MiTablaEstatica( encabezadosSaldo, "Saldo del cliente" );
 	
-		btnSeleccionar = (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Buscar Cliente"), colorAcento1 );
-		btnLimpiar= (JButton) ComponenteGrafico.TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
+		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Buscar Cliente"), colorAcento1 );
+		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
 		
 		JComponent comps [][] = {
 			{reporteCliente },
@@ -44,7 +44,7 @@ public class PanelClientes extends JPanel implements ComponenteGrafico {
 			{ btnLimpiar, btnSeleccionar }
 		};
 		
-		JLabel etiq = (JLabel) ComponenteGrafico.TextoPrincipal( ComponenteGrafico.EtiquetaCentranda( new JLabel("Selector Clientes") ) );	
+		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel("Selector Clientes") ) );	
 		gbc.gridy = 0; gbc.weighty=1;
 		add( etiq, gbc );
 		
