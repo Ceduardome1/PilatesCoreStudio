@@ -1,6 +1,6 @@
 package inserciones;
 
-public class Reservaciones {
+public class InsercionesIndividualesSalas {
 
 	public static void main( String args[] ) {
 

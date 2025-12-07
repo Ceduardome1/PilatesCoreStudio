@@ -1,7 +1,7 @@
 package main;
-import consultas.consultaClases;
-import consultas.consultaClientes;
-import consultas.consultaInstructores;
+import consultas.ConsultaClases;
+import consultas.ConsultaClientes;
+import consultas.ConsultaInstructores;
 import inserciones.*;
 public class MainConsulta {
 
@@ -13,15 +13,15 @@ public class MainConsulta {
 
         // 1. Insertar clientes
         System.out.println("\nInsertando Clientes...");
-        insercionesClientes.main(null);
+        InsercionesIndividualesClientes.main(null);
 
         // 2. Insertar instructores
         System.out.println("\nInsertando Instructores...");
-        insercionesInstructores.main(null);
+        InsercionesIndividualesInstructores.main(null);
 
         // 3. Insertar clases
         System.out.println("\nInsertando Clases...");
-        insercionesClases.main(null);
+        insercionesIndividualesClases.main(null);
 
         System.out.println("\n======================================");
         System.out.println("   CONSULTANDO DATOS ALMACENADOS");
@@ -29,15 +29,15 @@ public class MainConsulta {
 
         // 4. Consultar clientes
         System.out.println("\nTabla de Clientes:");
-        consultaClientes.main(null);
+        ConsultaClientes.main(null);
 
         // 5. Consultar instructores
         System.out.println("\nTabla de Instructores:");
-        consultaInstructores.main(null);
+        ConsultaInstructores.main(null);
 
         // 6. Consultar clases
         System.out.println("\nTabla de Clases:");
-        consultaClases.main(null);
+        ConsultaClases.main(null);
 
         System.out.println("\n======================================");
         System.out.println("   FIN DE EJECUCION");

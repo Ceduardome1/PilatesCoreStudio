@@ -5,7 +5,7 @@ import dominio.Direccion;
 import dominio.Sucursal;
 import bd.BD;
 
-public class insercionesInstructores{
+public class InsercionesIndividualesInstructores{
 
     public static void main(String[] args) {
 

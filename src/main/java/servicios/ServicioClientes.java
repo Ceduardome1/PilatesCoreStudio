@@ -38,7 +38,6 @@ public class ServicioClientes {
 	            throw e;
 	        }
     		
-        bd.confirmarTransaccion();
     }
 
 }

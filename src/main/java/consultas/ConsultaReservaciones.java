@@ -1,6 +1,6 @@
 package consultas;
 
-public class Reservaciones {
+public class ConsultaReservaciones {
 	
 	public static void main( String args[] ) {
 

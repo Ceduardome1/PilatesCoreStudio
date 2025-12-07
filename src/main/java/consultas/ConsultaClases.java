@@ -5,7 +5,7 @@ import bd.BD;
 
 import java.util.List;
 
-public class consultaClases {
+public class ConsultaClases {
 
     public static void main(String[] args) {
 
@@ -18,16 +18,16 @@ public class consultaClases {
         System.out.printf("%-5s %-6s %-12s %-12s %-6s %-10s%n",
                 "ID", "Sala", "Instructor", "Fecha", "Hora", "Admin");
 
-        for (Clase c : lista) {
-            System.out.printf("%-5d %-6d %-12s %-12s %-6s %-10s%n",
-                    c.getIdClase(),
-                    c.getSala().getIdSala(),
-                    c.getInstructor().getNombre(),
-                    c.getHorario().getFecha(),
-                    c.getHorario().getHora(),
-                    c.getEmisor().getNombre()
-            );
-        }
+	        for (Clase c : lista) {
+	            System.out.printf("%-5d %-6d %-12s %-12s %-6s %-10s%n",
+	                    c.getIdClase(),
+	                    c.getSala().getIdSala(),
+	                    c.getInstructor().getNombre(),
+	                    c.getHorario().getFecha(),
+	                    c.getHorario().getHora(),
+	                    c.getEmisor().getNombre()
+	            );
+	        }
 
         bd.cerrarConexion();
     }

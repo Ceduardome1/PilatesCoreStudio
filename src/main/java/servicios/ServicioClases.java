@@ -1,20 +1,58 @@
 package servicios;
 
 import java.util.List;
+
+import actores.Administrador;
+import actores.Instructor;
 import bd.BD;
 import bd.RepositorioClases;
 import dominio.Clase;
+import dominio.Horario;
+import dominio.Sala;
+import dominio.Sucursal;
 
 public class ServicioClases {
 
 	private final BD bd;
 	private final RepositorioClases repo;
 
-	public ServicioClases( BD bd, RepositorioClases repo ) {
+	private final ServicioSalas servicioSalas;
+	
+	public ServicioClases( BD bd, RepositorioClases repo, ServicioSalas servicioSalas ) {
 		this.repo = repo;
 		this.bd = bd;
+		this.servicioSalas = servicioSalas;
 	}
 	
+	public Clase registrarClase( Horario horario,  Instructor instructor, 
+	Administrador admin, Sucursal sucursal ) throws Exception {
+	    	
+		try {
+			
+			Clase filtro = new Clase( null, null, null, horario, null );
+			List< Clase > clasesEnHorario = filtrarClases( filtro );
+			
+			Sala sala = servicioSalas.asignarSala( clasesEnHorario );
+			
+			Integer idClase = generarIdClase();
+			
+			Clase clase = new Clase(idClase, sala, instructor, horario, admin );
+			
+			registrarClase( clase );
+			
+			bd.confirmarTransaccion();
+			
+			return clase;
+		
+		}
+		catch( Exception e ) {
+			bd.deshacerTransaccion();
+			throw e;
+		}
+		
+		
+	}
+	  
     public void registrarClase( Clase clase ) throws Exception {
 	    	try {
 	            repo.insertar( clase, bd );
@@ -22,7 +60,6 @@ public class ServicioClases {
 	        	bd.deshacerTransaccion();
 	            throw e;
 	        }
-    	bd.confirmarTransaccion();
     }
 
     public List<Clase> filtrarClases( Clase filtro ) throws Exception {
@@ -49,5 +86,5 @@ public class ServicioClases {
 	        }
         return max + 1;
     }
-
+    
 }

@@ -5,7 +5,7 @@ import bd.BD;
 
 import java.util.List;
 
-public class consultaInstructores {
+public class ConsultaInstructores {
 
     public static void main(String[] args) {
 

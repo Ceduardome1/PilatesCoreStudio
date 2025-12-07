@@ -1,8 +1,3 @@
-/*
- * DOCENTE: DR.CLEMENTE GARCIA GERARDO. 	
- * ENTREGA: 24/09/25. 
- * DESCRIPCION: MI JTABLE PERSONALIZADA.
- */
 package componentesGraficos;
 
 import java.awt.*;

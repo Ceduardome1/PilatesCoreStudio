@@ -24,17 +24,17 @@ public class DemoClases {
 		RepositorioInstructores repoInstructores = new RepositorioInstructores();
 		ServicioInstructores servicioInstructores = new ServicioInstructores( bd,repoInstructores );
 		
-		RepositorioClases repoClases = new RepositorioClases();
-		ServicioClases servicioClases = new ServicioClases( bd, repoClases );
-		
 		RepositorioSalas repoSalas = new RepositorioSalas();
 		ServicioSalas servicioSalas = new ServicioSalas( bd, repoSalas );
+		
+		RepositorioClases repoClases = new RepositorioClases();
+		ServicioClases servicioClases = new ServicioClases( bd, repoClases, servicioSalas );
 		
 		Direccion direccion = new Direccion( 80000, (short)231, "Cristobal Colón", "Centro" );
 		Sucursal sucursal = new Sucursal( 1, direccion );
 		Administrador admin = new Administrador( 1, "Cesar", "Meza", "Escobar", sucursal );
 		
-		ControladorClase controlador = new ControladorClase( admin, servicioClases, servicioSalas, servicioInstructores );
+		ControladorClase controlador = new ControladorClase( admin, sucursal, servicioClases, servicioInstructores );
 		
         VistaClases vista = new VistaClases();
   

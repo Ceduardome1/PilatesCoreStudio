@@ -6,7 +6,7 @@ import actores.Cliente;
 import dominio.SaldoClases;
 import bd.BD;
 
-public class insercionesClientes {
+public class InsercionesIndividualesClientes {
 
     public static void main(String[] args) {
 
