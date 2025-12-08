@@ -33,7 +33,7 @@ public class OrquestadorReservaciones {
 				
 				servicioClientes.descontarClase( cliente );
 				
-				Integer idReservacion = generarIdReservacion();
+				Integer idReservacion = repo.generarIdReservacion( conexion );
 				Reservacion rvAct = new Reservacion( idReservacion, idCamaAsignada, clase, cliente, emisor );
 				
 				registrarReservacion( rvAct );
@@ -51,11 +51,6 @@ public class OrquestadorReservaciones {
 	
 	private void registrarReservacion( Reservacion reservacion) throws Exception {
 		repo.insertar( reservacion, conexion );
-	}
-
-	private Integer generarIdReservacion() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public List<Cliente> filtrarClientes( Cliente filtro ) throws Exception {

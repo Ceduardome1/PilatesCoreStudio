@@ -5,13 +5,13 @@ public class Sala {
 	private final Integer idSala;
 	private final Sucursal sucursal;
 	private final int camasTotales;
-	private final int ultimaCamaAsignada;
+	private Integer idUltimaCamaAsignada;
 	
 	public Sala(Integer idSala, Sucursal sucursal, int camasTotales ) {
 		this.idSala = idSala;
 		this.sucursal = sucursal;
 		this.camasTotales = camasTotales;
-		this.ultimaCamaAsignada = 0;
+		this.idUltimaCamaAsignada = 0;
 	}
 
 	public Integer getIdSala() {
@@ -26,12 +26,20 @@ public class Sala {
 		return camasTotales;
 	}
 
-	public int getUltimaCamaAsignada() {
-		return ultimaCamaAsignada;
+	public Integer asignarCama() {
+			if( !estaDisponible() )
+				return null;
+		Integer cama = idUltimaCamaAsignada;
+		idUltimaCamaAsignada++;
+		return cama;
+	}
+	
+	public boolean estaDisponible() {
+		return idUltimaCamaAsignada < camasTotales;
 	}
 	
 	public int getCamasDisponibles() {
-		return camasTotales - ultimaCamaAsignada;
+		return camasTotales - idUltimaCamaAsignada;
 	}
 	
 	public boolean corresponde( Sala otra ) {

@@ -1,5 +1,6 @@
 package servicios;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import bd.BD;
@@ -18,14 +19,22 @@ public class ServicioSalas {
 	}
     
 	public Sala asignarSala( List<Clase> clasesEnHorario ) throws Exception {
-		List<Sala> salasEnHorario = null;
-		
-		return repo.buscarDiferente( salasEnHorario, conexion ); 
+		LinkedList< Sala > salasOcupadas = new LinkedList<Sala>();
+			
+				for ( Clase clase : clasesEnHorario ) 
+					salasOcupadas.add( clase.getSala() );
+				
+		return repo.buscarDiferente( salasOcupadas, conexion );    
 	}
 	
 	public Integer asignarCama( Sala sala ) throws Exception {
-
-		return null;
+		sala = repo.buscar( sala.getIdSala(), conexion );
+			if( sala == null ) return null;
+		
+		Integer camaAsignada = sala.asignarCama();
+		repo.actualizar( sala, conexion );
+			
+		return camaAsignada;
 	}
 	
 }

@@ -57,4 +57,19 @@ public class RepositorioClases {
 		return bd.getConexion().query(Clase.class);
 	}
 
+	public Integer generarIdClase( BD bd) throws Exception {
+        List<Clase> clases = buscarTodo( bd );
+
+	        if (clases.isEmpty()) {
+	            return 1;
+	        }
+
+        int max = 0;
+	        for ( Clase c : clases ) {
+	            if ( c.getIdClase() > max ) {
+	                max = c.getIdClase();
+	            }
+	        }
+        return max + 1;
+    }
 }

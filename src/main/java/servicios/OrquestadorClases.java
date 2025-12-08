@@ -36,7 +36,7 @@ public class OrquestadorClases {
 			
 			Sala sala = servicioSalas.asignarSala( clasesEnHorario );
 			
-			Integer idClase = generarIdClase();
+			Integer idClase = repo.generarIdClase( bd );
 			
 			Clase clase = new Clase(idClase, sala, instructor, horario, admin );
 			
@@ -54,23 +54,6 @@ public class OrquestadorClases {
 		
 		
 	}
-	 
-    private Integer generarIdClase() throws Exception {
-    	
-        List<Clase> clases = repo.buscarTodo( bd );
-
-	        if (clases.isEmpty()) {
-	            return 1;
-	        }
-
-        int max = 0;
-	        for ( Clase c : clases ) {
-	            if ( c.getIdClase() > max ) {
-	                max = c.getIdClase();
-	            }
-	        }
-        return max + 1;
-    }
     
     private void registrarClase( Clase clase ) throws Exception {
 	    	try {
@@ -97,4 +80,10 @@ public class OrquestadorClases {
 		return servicioInstructores.buscarInstructor( idInstructor );
 	}
 
+	public Sala asignarSala( Horario horario ) throws Exception {
+		Clase filtro = new Clase(null, null, null, horario, null);
+		List<Clase> clasesEnHorario = filtrarClases( filtro );
+		return servicioSalas.asignarSala( clasesEnHorario );
+	}
+	
 }
