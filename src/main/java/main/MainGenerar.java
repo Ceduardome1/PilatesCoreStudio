@@ -3,7 +3,7 @@ import consultas.ConsultaClases;
 import consultas.ConsultaClientes;
 import consultas.ConsultaInstructores;
 import inserciones.*;
-public class MainConsulta {
+public class MainGenerar {
 
     public static void main(String[] args) {
 

@@ -30,10 +30,8 @@ public class ServicioSalas {
 	public Integer asignarCama( Sala sala ) throws Exception {
 		sala = repo.buscar( sala.getIdSala(), conexion );
 			if( sala == null ) return null;
-		
 		Integer camaAsignada = sala.asignarCama();
 		repo.actualizar( sala, conexion );
-			
 		return camaAsignada;
 	}
 	

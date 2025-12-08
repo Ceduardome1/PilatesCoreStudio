@@ -1,6 +1,5 @@
 package bd;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.db4o.ObjectContainer;
@@ -59,14 +58,23 @@ public class RepositorioSalas {
 		bd.getConexion().store(sala);
 	}
 
-	public Sala buscarDiferente(LinkedList<Sala> salasOcupadas, BD conexion) throws Exception {
-		List<Sala> todasLasSalas = buscarTodo( conexion ); 
-			for ( Sala salaAsignada : todasLasSalas) {
-				Sala salaAct = buscar( salaAsignada.getIdSala(), conexion);
-					if( salaAct == null ) 
-						return salaAsignada;
-			}
-		return null;
+	public Sala buscarDiferente(List<Sala> salasOcupadas, BD conexion) throws Exception {
+	    List<Sala> todasLasSalas = buscarTodo(conexion);
+		    if(todasLasSalas.isEmpty())
+		        throw new Exception("No hay salas registradas.");
+
+		    for(Sala sala : todasLasSalas) {
+		        boolean ocupada = false;
+		        for(Sala s : salasOcupadas) 
+		            if(s.getIdSala().equals(sala.getIdSala())) {
+		                ocupada = true;
+		                break;
+		            }
+		        
+		        if(!ocupada) return sala;
+		    }
+
+	    return null;
 	}
 	
 }

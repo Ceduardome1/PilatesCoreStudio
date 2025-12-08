@@ -28,6 +28,9 @@ public class OrquestadorReservaciones {
 		
 			try { 
 				
+					if( yaTieneReservacion(cliente, clase) )
+						throw new Exception("El cliente ya cuenta con una reservación en ese horario.");
+				
 				Sala sala = clase.getSala();
 				Integer idCamaAsignada = servicioSalas.asignarCama( sala );
 				
@@ -47,6 +50,14 @@ public class OrquestadorReservaciones {
 				throw e;
 			}
 		
+	}
+
+	private boolean yaTieneReservacion( Cliente cliente, Clase clase ) throws Exception {
+		Reservacion filtro = new Reservacion(null, null, clase, cliente, null);
+		Reservacion reservacionHecha= repo.buscar( filtro, conexion );
+			if( reservacionHecha == null )
+				return false;
+		return true;
 	}
 	
 	private void registrarReservacion( Reservacion reservacion) throws Exception {

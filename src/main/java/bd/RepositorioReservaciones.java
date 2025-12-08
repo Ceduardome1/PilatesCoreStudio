@@ -8,6 +8,11 @@ import dominio.Reservacion;
 
 public class RepositorioReservaciones {
 	
+	public Reservacion buscar( Reservacion filtro, BD bd ) throws Exception {
+		
+		return null;
+	}
+	
 	public void insertar( Reservacion reservacion, BD bd ) throws Exception {
 		ObjectContainer db = bd.getConexion();
         db.store(reservacion);
