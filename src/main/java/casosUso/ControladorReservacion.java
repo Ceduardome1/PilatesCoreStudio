@@ -45,7 +45,7 @@ private final OrquestadorClases servicioClases;
 	}
 	
 	public List< Clase > buscarClase( Clase filtro ) throws Exception {
-		return servicioClases.filtrarClases( filtro );
+		return servicioClases.filtrarClases( filtro, false );
 	}
 
 	public Clase seleccionarClase( Integer idClase ) throws Exception {

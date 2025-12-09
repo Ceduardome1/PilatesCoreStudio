@@ -54,6 +54,10 @@ public class RepositorioSalas {
 		return bd.getConexion().query(Sala.class);
 	}
 
+	public void insertar( Sala sala, BD bd ) throws Exception {
+		bd.getConexion().store(sala);
+	}
+	
 	public void actualizar( Sala sala, BD bd ) throws Exception {
 		bd.getConexion().store(sala);
 	}
@@ -70,7 +74,6 @@ public class RepositorioSalas {
 		                ocupada = true;
 		                break;
 		            }
-		        
 		        if(!ocupada) return sala;
 		    }
 

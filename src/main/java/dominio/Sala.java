@@ -14,6 +14,10 @@ public class Sala {
 		this.idUltimaCamaAsignada = 0;
 	}
 
+	public Sala( Sala sala ) {
+		this( sala.getIdSala(), sala.getSucursal(), sala.getCamasTotales() );
+	}
+	
 	public Integer getIdSala() {
 		return idSala;
 	}

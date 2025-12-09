@@ -41,6 +41,7 @@ public class DemoReservacion {
         VistaReservaciones vista = new VistaReservaciones();
   
         new ControladorVistaReservaciones( vista, controlador );
+	
 	}
 	
 }

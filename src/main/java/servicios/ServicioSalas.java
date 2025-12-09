@@ -23,8 +23,11 @@ public class ServicioSalas {
 			
 				for ( Clase clase : clasesEnHorario ) 
 					salasOcupadas.add( clase.getSala() );
-				
-		return repo.buscarDiferente( salasOcupadas, conexion );    
+		Sala salaAsignada = repo.buscarDiferente( salasOcupadas, conexion );    
+			if( salaAsignada == null ) return null;
+		salaAsignada = new Sala( salaAsignada );
+		repo.insertar( salaAsignada, conexion );
+		return salaAsignada;
 	}
 	
 	public Integer asignarCama( Sala sala ) throws Exception {

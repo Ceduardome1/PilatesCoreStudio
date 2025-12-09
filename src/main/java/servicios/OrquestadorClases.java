@@ -32,13 +32,13 @@ public class OrquestadorClases {
 		try {
 			
 			Clase filtro = new Clase( null, null, null, horario, null );
-			List< Clase > clasesEnHorario = filtrarClases( filtro );
 			
+			List< Clase > clasesEnHorario = filtrarClases( filtro, true );
 			Sala sala = servicioSalas.asignarSala( clasesEnHorario );
 			
 				if( sala == null ) 
 					throw new Exception("Todas las salas estan ocupadas en el horario seleccionado.");
-			
+				
 			Integer idClase = repo.generarId( bd );
 			
 			Clase clase = new Clase( idClase, sala, instructor, horario, admin );
@@ -67,8 +67,8 @@ public class OrquestadorClases {
 	        }
     }
 
-    public List<Clase> filtrarClases( Clase filtro ) throws Exception {
-        return repo.buscar( filtro, bd );
+    public List<Clase> filtrarClases( Clase filtro, boolean horaExacta ) throws Exception {
+        return repo.buscar( filtro, horaExacta, bd );
     }
 
     public Clase buscarClase(Integer id) throws Exception {
@@ -81,12 +81,6 @@ public class OrquestadorClases {
 	
 	public Instructor buscarInstructor( Integer idInstructor ) throws Exception {
 		return servicioInstructores.buscarInstructor( idInstructor );
-	}
-
-	public Sala asignarSala( Horario horario ) throws Exception {
-		Clase filtro = new Clase(null, null, null, horario, null);
-		List<Clase> clasesEnHorario = filtrarClases( filtro );
-		return servicioSalas.asignarSala( clasesEnHorario );
 	}
 	
 }
