@@ -46,7 +46,7 @@ public class ControladorVistaReservaciones implements ControladorGrafico, Action
 			
 		vista.getPanelClientes().MostrarCliente( cliente );
 		
-			if( !cliente.esSaldoValido() ) {
+			if( !cliente.tieneSaldoValido() ) {
 				Rutinas.MensajeError("El cliente no cuenta con saldo de clases disponible.");
 				return;
 			}

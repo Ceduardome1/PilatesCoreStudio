@@ -57,7 +57,7 @@ public class RepositorioClases {
 		return bd.getConexion().query(Clase.class);
 	}
 
-	public Integer generarIdClase( BD bd) throws Exception {
+	public Integer generarId( BD bd) throws Exception {
         List<Clase> clases = buscarTodo( bd );
 
 	        if (clases.isEmpty()) {

@@ -2,6 +2,8 @@ package controladoresGraficos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.ListSelectionModel;
@@ -11,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import actores.Instructor;
 import dominio.Clase;
 import dominio.Horario;
+import dominio.ReglasNegocio;
 import interfaces.ControladorGrafico;
 import interfaces.SelectorClase;
 import interfaces.SelectorHorario;
@@ -145,6 +148,14 @@ public class ControladorSelectorClases implements ControladorGrafico, ActionList
 	}
 	
 	private void consultar() {
+		
+			if( horario == null )
+				horario = new Horario(
+					LocalDate.now(), 
+					LocalTime.now().plusMinutes( ReglasNegocio.getMinDuracionClase() )
+				);
+				
+		
 		
 		Clase filtro = new Clase( null, null, instructor, horario, null );
 		List< Clase > listaClases=null;

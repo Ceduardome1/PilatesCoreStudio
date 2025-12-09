@@ -38,6 +38,11 @@ public class Horario {
 	    return Long.compare(esteTotal, otroTotal);
 	}
 	
+	public boolean corresponde(Horario otro) {
+	    return segundosFecha == otro.segundosFecha
+	    	&& segundosHora == otro.segundosHora;
+	}
+	
 	public String mostrarFecha() {
 		return getFecha().toString();
 	}

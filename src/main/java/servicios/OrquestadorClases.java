@@ -39,9 +39,9 @@ public class OrquestadorClases {
 				if( sala == null ) 
 					throw new Exception("Todas las salas estan ocupadas en el horario seleccionado.");
 			
-			Integer idClase = repo.generarIdClase( bd );
+			Integer idClase = repo.generarId( bd );
 			
-			Clase clase = new Clase(idClase, sala, instructor, horario, admin );
+			Clase clase = new Clase( idClase, sala, instructor, horario, admin );
 			
 			registrarClase( clase );
 			

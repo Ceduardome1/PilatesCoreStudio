@@ -28,7 +28,7 @@ public class ServicioClientes {
 	        
     	cliente.descontarClase();
     	
-    		if( !cliente.esSaldoValido() )
+    		if( !cliente.tieneSaldoValido() )
     			throw new Exception( "El saldo de clases del cliente ya no es válido." );
  
     		try {

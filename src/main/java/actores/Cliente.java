@@ -56,7 +56,7 @@ public class Cliente {
 		);
 	}
 	
-	public boolean esSaldoValido() {
+	public boolean tieneSaldoValido() {
 		return saldoClases.getClasesDisponibles() > 0
 			&& !saldoClases.getVigencia().isBefore( LocalDate.now() );
 	}

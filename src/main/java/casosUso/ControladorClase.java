@@ -23,9 +23,7 @@ public class ControladorClase implements ServicioBusquedaInstructores{
 		this.servicioClases = servicioClases;
 	}
 
-	public void crearClase() {
-		
-	}
+	public void crearClase() {}
 
 	public List< Instructor > buscarInstructor( Instructor filtro ) throws Exception {
 		return servicioClases.filtrarInstructores( filtro );

@@ -40,13 +40,13 @@ public class RepositorioClientes {
                 if (clienteId != null && !c.getIdCliente().equals(clienteId)) {
                     return false;
                 }
-                if (nombre != null && !c.getNombre().equalsIgnoreCase(nombre)) {
+                if (nombre != null && !c.getNombre().toUpperCase().startsWith(nombre.toUpperCase())) {
                     return false;
                 }
-                if (ap1 != null && !c.getApellidoPaterno().equalsIgnoreCase(ap1)) {
+                if (ap1 != null && !c.getApellidoPaterno().toUpperCase().startsWith(ap1.toUpperCase())) {
                     return false;
                 }
-                if (ap2 != null && !c.getApellidoMaterno().equalsIgnoreCase(ap2)) {
+                if (ap2 != null && !c.getApellidoMaterno().toUpperCase().startsWith(ap2.toUpperCase())) {
                     return false;
                 }
                 if (telefono != null && !c.getTelefono().equals(telefono)) {

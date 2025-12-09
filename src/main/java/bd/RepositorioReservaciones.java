@@ -3,14 +3,33 @@ package bd;
 import java.util.List;
 
 import com.db4o.ObjectContainer;
+import com.db4o.query.Predicate;
 
+import actores.Cliente;
+import dominio.Clase;
 import dominio.Reservacion;
 
 public class RepositorioReservaciones {
 	
-	public Reservacion buscar( Reservacion filtro, BD bd ) throws Exception {
-		
-		return null;
+	public List<Reservacion> buscar(Reservacion filtro, BD bd) throws Exception {
+
+	    	if (filtro == null) return null;
+	    Cliente cliente = filtro.getCliente();
+	    Clase clase = filtro.getClase();
+	    ObjectContainer conexion = bd.getConexion();
+
+	    return conexion.query(new Predicate<Reservacion>() {
+	        @Override
+	        public boolean match(Reservacion r) {
+	        	
+	        	if (cliente != null && !r.getCliente().corresponde(cliente))
+	                return false;
+	            if (clase != null && !r.getClase().getHorario().corresponde(clase.getHorario()))
+	                return false;
+
+	            return true;
+	        }
+	    });
 	}
 	
 	public void insertar( Reservacion reservacion, BD bd ) throws Exception {
@@ -22,7 +41,7 @@ public class RepositorioReservaciones {
 		return bd.getConexion().query(Reservacion.class);
 	}
 	
-	public Integer generarIdReservacion( BD bd) {
+	public Integer generarId( BD bd) {
 		List<Reservacion> rvs = buscarTodo( bd );
 	
 			if (rvs.isEmpty()) {
