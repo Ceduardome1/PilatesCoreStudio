@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import actores.Cliente;
 import casosUso.ControladorReservacion;
 import dominio.Clase;
+import dominio.Reservacion;
 import interfaces.ControladorGrafico;
 import interfaces.SelectorClase;
 import interfaces.SelectorCliente;
@@ -124,17 +125,20 @@ public class ControladorVistaReservaciones implements ControladorGrafico, Action
 				return;
 			}
 			
+		Reservacion reservacion = null;
+		
 			try {
 				
-				controlador.reservarClase( cliente, clase );
+				reservacion = controlador.reservarClase( cliente, clase );
 				
 			} catch ( Exception ex ) {
 				Rutinas.MensajeError( ex.getMessage() );
 				return;
 			}
-			
+		
 		Rutinas.Mensaje( "Información", "La Reservacion fue registrada con éxito!." );
 		reiniciar();
+		vista.mostrarReporte( reservacion );
 	}
 
 	public void reiniciarCliente() {

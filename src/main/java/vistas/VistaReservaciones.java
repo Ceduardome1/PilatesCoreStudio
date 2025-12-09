@@ -7,8 +7,10 @@ import javax.swing.*;
 import componentesGraficos.JPlantilla;
 import componentesGraficos.PanelClases;
 import componentesGraficos.PanelClientes;
+import componentesGraficos.ReporteReservacion;
 import controladoresGraficos.ControladorSelectorClases;
 import controladoresGraficos.ControladorSelectorClientes;
+import dominio.Reservacion;
 import interfaces.ComponenteGrafico;
 import interfaces.SelectorClase;
 import interfaces.SelectorCliente;
@@ -89,6 +91,13 @@ public class VistaReservaciones extends JDialog implements ComponenteGrafico {
     		new ControladorSelectorClases( v, servicioClases, servicioInstructores, listener);
     		setVisible(true);
 		}
+		
+	    public void mostrarReporte( Reservacion reservacion ) {
+	    	setVisible(false);
+	    	new ReporteReservacion( reservacion );
+	    	setVisible(true);
+	    }
+    
 		
 	    public JButton getBtnReservar() {
 			return btnReservar;

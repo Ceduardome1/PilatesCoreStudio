@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import actores.Instructor;
 import casosUso.ControladorClase;
+import dominio.Clase;
 import dominio.Horario;
 import interfaces.ControladorGrafico;
 import interfaces.SelectorHorario;
@@ -134,10 +135,10 @@ public class ControladorVistaClases implements ControladorGrafico, ActionListene
 	private void registrar() {
 		
 			if( !validar() ) return;
-
+		Clase clase = null;
 			try {
 				
-				controlador.registrarClase( instructor, horario );
+				clase = controlador.registrarClase( instructor, horario );
 				
 			} catch (Exception e) {
 				Rutinas.MensajeError( e.getMessage() );
@@ -147,6 +148,7 @@ public class ControladorVistaClases implements ControladorGrafico, ActionListene
 		
 		Rutinas.Mensaje( "Información", "La Clase fue registrada con éxito!." );
 		reiniciar();
+		vista.mostrarReporte( clase );
 	}
 	
 }

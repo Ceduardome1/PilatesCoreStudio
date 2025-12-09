@@ -29,7 +29,7 @@ private static final long serialVersionUID = 1L;
 			for( int r=0, nRengs = comps.length; r<nRengs; r++ ) {
 				JPanel pan = new JPanel( new GridBagLayout() );
 					for( int c=0, nCols = comps[r].length; c<nCols; c++ ) {
-						gbc.gridx = c;	
+						gbc.gridx = c;
 						pan.add( comps[r][c], gbc );
 					}
 				gbc.gridx = 0; 	gbc.gridy = r;

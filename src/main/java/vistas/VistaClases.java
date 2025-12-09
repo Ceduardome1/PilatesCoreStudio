@@ -14,8 +14,10 @@ import javax.swing.JScrollPane;
 import componentesGraficos.JPlantilla;
 import componentesGraficos.PanelHorarios;
 import componentesGraficos.PanelInstructores;
+import componentesGraficos.ReporteClase;
 import controladoresGraficos.ControladorSelectorHorarios;
 import controladoresGraficos.ControladorSelectorInstructores;
+import dominio.Clase;
 import interfaces.ComponenteGrafico;
 import interfaces.SelectorHorario;
 import interfaces.SelectorInstructor;
@@ -95,6 +97,12 @@ public class VistaClases extends JDialog implements ComponenteGrafico {
 	        setVisible(true);
 		}
 	
+	    public void mostrarReporte( Clase clase) {
+	    	setVisible(false);
+	    	new ReporteClase( clase );
+	    	setVisible(true);
+	    }
+	    
 	    public JButton getBtnGuardar() {
 			return btnGuardar;
 		}

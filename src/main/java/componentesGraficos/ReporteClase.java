@@ -1,4 +1,3 @@
-
 package componentesGraficos;
 
 import java.awt.GridBagConstraints;
@@ -13,19 +12,21 @@ import dominio.Horario;
 import dominio.Sala;
 import interfaces.ComponenteGrafico;
 
-public class PanelClases extends JPanel implements ComponenteGrafico {
+public class ReporteClase extends JDialog implements ComponenteGrafico {
+
 	private static final long serialVersionUID = 1L;
-	
-	private JButton btnSeleccionar, btnLimpiar;
+	private static final int anchoVent=500, altoVent=500;
+
 	private MiTablaEstatica reporteClase;
 	private MiTablaEstatica reporteSala;
 	private MiTablaEstatica reporteInstructor;
 
-	public PanelClases() {
-		HazInterfaz();
-	}
-	
-	private void HazInterfaz() {
+	public ReporteClase( Clase clase ) {
+		hazInterfaz( clase );
+		hacerVisible();
+	}	
+
+	private void hazInterfaz( Clase clase ) {
 		setLayout( ( new GridBagLayout() ) );
 		GridBagConstraints gbc = new GridBagConstraints();
 	    gbc.fill = GridBagConstraints.BOTH;
@@ -40,20 +41,13 @@ public class PanelClases extends JPanel implements ComponenteGrafico {
 		
 		String encabezadosInstructor[] = { "ID", "Nombre", "Ap.Paterno", "Ap.Materno" };
 		reporteInstructor = new MiTablaEstatica( encabezadosInstructor, "Información del Instructor" );
-	
-		btnSeleccionar = (JButton) TextoAcentuado( new JButton("Buscar Clase"), colorAcento1 );
-		btnLimpiar= (JButton) TextoAcentuado( new JButton("Limpiar"), colorAcento2 );
-		
+
 		JComponent comps [][] = {
 			{reporteClase, reporteSala },
 			{reporteInstructor}
 		};
 		
-		JComponent comps1 [][] = {
-			{ btnLimpiar, btnSeleccionar }
-		};
-		
-		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel("Selector Clases") ) );	
+		JLabel etiq = (JLabel) TextoPrincipal( EtiquetaCentranda( new JLabel("Clase Registrada:") ) );	
 		gbc.gridy = 0; gbc.weighty=1;
 		add( etiq, gbc );
 		
@@ -61,14 +55,13 @@ public class PanelClases extends JPanel implements ComponenteGrafico {
 		gbc.gridx = 0; gbc.gridy = 1;
 		gbc.weightx = 1; gbc.weighty=49;
 		add( panTablas, gbc );
-		
-		JPlantilla panBtns = new JPlantilla( comps1 );	
-		gbc.gridy = 2; gbc.weighty=1;
-		add( panBtns, gbc );
+
+		mostrarInfoClase( clase );
 		
 	}
-	
-	public void MostrarInfoClase( Clase clase ) {
+
+	public void mostrarInfoClase( Clase clase ) {
+		
 			if( clase == null ) return;
 		reiniciar();
 		Horario hora = clase.getHorario();
@@ -97,22 +90,17 @@ public class PanelClases extends JPanel implements ComponenteGrafico {
 		
 	}
 	
-	public JButton getBtnSeleccionar() {
-		return btnSeleccionar;
-	}
+	@Override
+	public void reiniciar() {}
 
-	public JButton getBtnLimpiar() {
-		return btnLimpiar;
-	}
-	
 	@Override
-	public void reiniciar() {
-		reporteSala.reiniciar();
-		reporteClase.reiniciar();
-		reporteInstructor.reiniciar();
+	public void hacerVisible() {
+		setSize( anchoVent, altoVent );
+		setLocationRelativeTo(null);
+		setResizable( true ); 
+		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+		setModal( true );
+		setVisible( true );
 	}
-	
-	@Override
-	public void hacerVisible() {}
 
 }

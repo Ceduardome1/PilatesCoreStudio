@@ -65,4 +65,7 @@ public class Cliente {
 		return otro!=null && otro.idCliente == idCliente;
 	}
 	
+	public String toString() {
+		return String.format( "%s %s %s", nombre, apellidoPaterno, apellidoMaterno );
+	}
 }
